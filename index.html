@@ -1,0 +1,114 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<h1>Route handlers</h1>
+<p>
+Routes are implemented as methods of a RouteGroup or Api class. For Jaguar to understand that the methods are route handlers, they must be annotated with one of the Jaguar route annotations (@Route, @Get, @Post, @Put, @Delete). RouteGroup allows grouping of related routes at the same place. Multiple related route groups can be composed into an Api.
+</p>
+
+<h2>Defining Routes</h2>
+<p>
+Writing a route is as simple as writing a method! @Route annotation informs Jaguar that the method is a route. Path of the route is specified using the path argument.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Route(path: <span style="color: #CD5555">&#39;/books&#39;</span>)
+  List&lt;Map&gt; getAllBooks() =&gt; _books.map((book) =&gt; book.toMap()).toList();
+</pre></td></tr></table></div>
+
+
+<p>
+method argument lets route annotations specify the methods the route should respond to. By default, a route will respond to GET, POST, PUT, PATCH, DELETE and OPTIONS methods.
+</p>
+
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Route(path: <span style="color: #CD5555">&#39;/books&#39;</span>, methods: <span style="color: #8B008B; font-weight: bold">const</span> &lt;<span style="color: #a7a7a7; font-weight: bold">String</span>&gt;[<span style="color: #CD5555">&#39;GET&#39;</span>])
+  List&lt;Map&gt; getAllBooks1() =&gt; _books.map((book) =&gt; book.toMap()).toList();
+</pre></td></tr></table></div>
+
+<p>
+@Get is a route annotation sugar to respond to only GET requests. Similarly sugars exist for @Post, @Put, @Delete.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(path: <span style="color: #CD5555">&#39;/books&#39;</span>)
+  List&lt;Map&gt; getAllBooks2() =&gt; _books.map((book) =&gt; book.toMap()).toList();
+</pre></td></tr></table></div>
+
+<p>
+statusCode and headers arguments lets route annotations specify default Http status and headers.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(
+      path: <span style="color: #CD5555">&#39;/inject/httprequest&#39;</span>,
+      statusCode: <span style="color: #B452CD">200</span>,
+      headers: <span style="color: #8B008B; font-weight: bold">const</span> {<span style="color: #CD5555">&#39;custom-header&#39;</span>: <span style="color: #CD5555">&#39;custom data&#39;</span>})
+  <span style="color: #a7a7a7; font-weight: bold">void</span> defaultStatusAndHeader() {}
+</pre></td></tr></table></div>
+
+<p>
+HttpRequest object for the current request is automatically provided if it is the first argument of route handler.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(path: <span style="color: #CD5555">&#39;/inject/httprequest&#39;</span>)
+  <span style="color: #a7a7a7; font-weight: bold">void</span> inputHttpRequest(HttpRequest req) {}
+</pre></td></tr></table></div>
+
+<h2>Path variables</h2>
+
+<p>
+Path variables can be defined in the path argument by beginning the path segment with ':'. The path variable identifier follows ':'. Jaguar will automatically provide the path variable if it finds corresponding required argument in route handler.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(path: <span style="color: #CD5555">&#39;/book/:id&#39;</span>)
+  <span style="color: #a7a7a7; font-weight: bold">String</span> getBookById(<span style="color: #a7a7a7; font-weight: bold">String</span> id) =&gt; _books[id]?.toJson();
+</pre></td></tr></table></div>
+
+<p>
+Jaguar can parse multiple path variables in same route annotation.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(path: <span style="color: #CD5555">&#39;/book/:book/:author&#39;</span>)
+  <span style="color: #a7a7a7; font-weight: bold">void</span> createBook(<span style="color: #a7a7a7; font-weight: bold">String</span> book, <span style="color: #a7a7a7; font-weight: bold">String</span> author)  {
+    <span style="color: #a7a7a7; font-weight: bold">String</span> newId = _newId();
+    _books[newId] = <span style="color: #8B008B; font-weight: bold">new</span> Book.make(newId, book, [author]);
+  }
+</pre></td></tr></table></div>
+
+<h2>Query params</h2>
+
+<p>
+Jaguar automatically provides query parameter through optional named parameters of the route handler.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post()
+  <span style="color: #a7a7a7; font-weight: bold">void</span> createBook({<span style="color: #a7a7a7; font-weight: bold">String</span> book, <span style="color: #a7a7a7; font-weight: bold">String</span> author})  {
+    <span style="color: #a7a7a7; font-weight: bold">String</span> newId = _newId();
+    _books[newId] = <span style="color: #8B008B; font-weight: bold">new</span> Book.make(newId, book, [author]);
+  }
+</pre></td></tr></table></div>
+
+
+</body>
+
+</html>
