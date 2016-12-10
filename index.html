@@ -58,7 +58,7 @@ header .title {
 }
 
 #sidebar .li {
-
+  cursor: pointer;
 }
 
 #sidebar .main-items {
@@ -72,6 +72,27 @@ header .title {
 #sidebar .main-items a {
   color: #ce8f22;
   font-size: 18px;
+}
+
+header .nav-menu {
+  color: #d49b2b;
+  margin-left: 100px;
+  font-size: 25px;
+}
+
+header .nav-menu-item {
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+header .nav-menu-item a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+header .nav-menu-item:hover {
+  border-bottom: 2px solid white;
 }
 </style>
 
@@ -87,6 +108,12 @@ header .title {
 
 <header>
 	<span class="title">Jaguar</span>
+
+	<span class="nav-menu">
+    <span class="nav-menu-item">Api documentation</span>
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
+    <span class="nav-menu-item"><a href="https://pub.dartlang.org/packages/jaguar">Pub</a></span>
+  </span>
 </header>
 
 <article id="article">
