@@ -36,7 +36,9 @@ header .title {
 }
 
 #article {
-  margin: 0px calc(10% + 350px) 5px 10%;
+  margin: 0px calc(10% + 350px) 5px 10%;    
+  font-size: 16px;
+  line-height: 22px;
 }
 
 #sidebar {
@@ -94,6 +96,13 @@ header .nav-menu-item a {
 header .nav-menu-item:hover {
   border-bottom: 2px solid white;
 }
+
+.jaguar-code {
+  padding: 0px 4px;
+  background-color: #e4e4e4;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
 </style>
 
 <script>
@@ -119,12 +128,12 @@ header .nav-menu-item:hover {
 <article id="article">
 <h1><a name="route-handlers" href="#route-handlers">Route handlers</a></h1>
 <p>
-Routes are implemented as methods of a RouteGroup or Api class. For Jaguar to understand that the methods are route handlers, they must be annotated with one of the Jaguar route annotations (@Route, @Get, @Post, @Put, @Delete). RouteGroup allows grouping of related routes at the same place. Multiple related route groups can be composed into an Api.
+Routes are implemented as methods of a <span class="jaguar-code">RouteGroup</span> or <span class="jaguar-code">Api</span> class. For Jaguar to understand that the methods are route handlers, they must be annotated with one of the Jaguar route annotations (<span class="jaguar-code">@Route</span>, <span class="jaguar-code">@Get</span>, <span class="jaguar-code">@Post</span>, <span class="jaguar-code">@Put</span>, <span class="jaguar-code">@Delete</span>). RouteGroup allows grouping of related routes at the same place. Multiple related route groups can be composed into an Api.
 </p>
 
 <h2><a name="route-handlers-defining-routes" href="route-handlers-defining-routes">Defining Routes</a></h2>
 <p>
-Writing a route is as simple as writing a method! @Route annotation informs Jaguar that the method is a route. Path of the route is specified using the path argument.
+Writing a route is as simple as writing a method! @Route annotation informs Jaguar that the method is a route. Path of the route is specified using the <span class="jaguar-code">path</span> argument.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
@@ -134,7 +143,7 @@ Writing a route is as simple as writing a method! @Route annotation informs Jagu
 
 
 <p>
-method argument lets route annotations specify the methods the route should respond to. By default, a route will respond to GET, POST, PUT, PATCH, DELETE and OPTIONS methods.
+<span class="jaguar-code">method</span> argument lets route annotations specify the methods the route should respond to. By default, a route will respond to GET, POST, PUT, PATCH, DELETE and OPTIONS methods.
 </p>
 
 
@@ -144,7 +153,7 @@ method argument lets route annotations specify the methods the route should resp
 </pre></td></tr></table></div>
 
 <p>
-@Get is a route annotation sugar to respond to only GET requests. Similarly sugars exist for @Post, @Put, @Delete.
+<span class="jaguar-code">@Get</span> is a route annotation sugar to respond to only GET requests. Similarly sugars exist for <span class="jaguar-code">@Post</span>, <span class="jaguar-code">@Put</span>, <span class="jaguar-code">@Delete</span>.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
@@ -153,7 +162,7 @@ method argument lets route annotations specify the methods the route should resp
 </pre></td></tr></table></div>
 
 <p>
-statusCode and headers arguments lets route annotations specify default Http status and headers.
+<span class="jaguar-code">statusCode</span> and <span class="jaguar-code">headers</span> arguments lets route annotations specify default Http status and headers.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
@@ -170,7 +179,7 @@ statusCode and headers arguments lets route annotations specify default Http sta
 <h2><a name="route-handlers-httprequest-object" href="route-handlers-httprequest-object">HttpRequest object</a></h2>
 
 <p>
-HttpRequest object for the current request is automatically provided if it is the first argument of route handler.
+<span class="jaguar-code">HttpRequest</span> object for the current request is automatically provided if it is the first argument of route handler.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
@@ -181,7 +190,7 @@ HttpRequest object for the current request is automatically provided if it is th
 <h2><a name="route-handlers-path-variables" href="route-handlers-path-variables">Path variables</a></h2>
 
 <p>
-Path variables can be defined in the path argument by beginning the path segment with ':'. The path variable identifier follows ':'. Jaguar will automatically provide the path variable if it finds corresponding required argument in route handler.
+Path variables can be defined in the path argument by beginning the path segment with <span class="jaguar-code">':'</span>. The path variable identifier follows <span class="jaguar-code">':'</span>. Jaguar will automatically provide the path variable if it finds corresponding required argument in route handler.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
@@ -234,7 +243,7 @@ An Interceptor wraps a route handler, meaning it executes before and after the r
 <h2><a name="interceptors-using-an-interceptor" href="interceptors-using-an-interceptor">Using an interceptor</a></h2>
 
 <p>
-A route can be wrapped with an interceptor by annotating the route with interceptor's wrapper. WrapEncodeToJson wrapper can be used to wrap EncodeToJson interceptor. EncodeToJson interceptor executes after route handler execution and converts the Map or List response returned by route to Json.
+A route can be wrapped with an interceptor by annotating the route with interceptor's wrapper. <span class="jaguar-code">WrapEncodeToJson</span> wrapper can be used to wrap <span class="jaguar-code">EncodeToJson</span> interceptor. <span class="jaguar-code">EncodeToJson</span> interceptor executes after route handler execution and converts the Map or List response returned by route to Json.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
@@ -261,7 +270,7 @@ Interceptors can return results that other interceptors and route handlers can u
 <li>Authentication interceptor</li>
 </ul>
 
-A route handler can request result of an interceptor to be injected into an argument by using the @Input annotation. 
+A route handler can request result of an interceptor to be injected into an argument by using the <span class="jaguar-code">@Input</span> annotation. <span class="jaguar-code">resultFrom</span> argument of <span class="jaguar-code">@Input</span> specifies which interceptor to get result from.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
@@ -277,13 +286,13 @@ A route handler can request result of an interceptor to be injected into an argu
 <h2><a name="interceptors-create-an-interceptor" href="interceptors-create-an-interceptor">Create an interceptor</a></h2>
 
 <p>
-<div>An interceptor must extend from the base class Interceptor. It must provide either pre or post interceptor methods. An interceptor must also be complemented with a RouteWrapper. The RouteWrapper is used to annotate the route handler and knows how to create an interceptor instance.</div>
+<div>An interceptor must extend from the base class <span class="jaguar-code">Interceptor</span>. It must provide either pre or post interceptor methods. An interceptor must also be complemented with a RouteWrapper. The RouteWrapper is used to annotate the route handler and knows how to create an interceptor instance.</div>
 
 <div>Below is an implementation of SampleInterceptor with its wrapper WrapSampleInterceptor.</div>
 </p>
 
 <p>
-<strong>Note:</strong> By convention routes must be named with a prefix of Wrap followed by the name of the interceptor it is wrapping.
+<strong>Note:</strong> By convention routes must be named with a prefix of <span class="jaguar-code">Wrap</span> followed by the name of the interceptor it is wrapping.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
@@ -332,7 +341,7 @@ A route handler can request result of an interceptor to be injected into an argu
 <h3><a name="interceptors-httprequest-object" href="interceptors-httprequest-object">HttpRequest object</a></h3>
 
 <p>
-HttpRequest object for the current request is automatically provided if it is the first argument of interceptor method.
+<span class="jaguar-code">HttpRequest</span> object for the current request is automatically provided if it is the first argument of interceptor method.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
@@ -369,7 +378,7 @@ HttpRequest object for the current request is automatically provided if it is th
 <h3><a name="interceptors-getting-result-of-another-interceptor" href="interceptors-">Getting result of another interceptor</a></h3>
 
 <p>
-Similar to route handlers, interceptor methods can request result of another interceptor to be injected into an argument by using the @Input annotation. resultFrom argument of @Input specifies which interceptor to get result from.
+Similar to route handlers, interceptor methods can request result of another interceptor to be injected into an argument by using the <span class="jaguar-code">@Input</span> annotation. <span class="jaguar-code">resultFrom</span> argument of <span class="jaguar-code">@Input</span> specifies which interceptor to get result from.
 </p>
 
 <div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
