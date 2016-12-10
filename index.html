@@ -1,7 +1,13 @@
 <html>
 
 <head>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
+<style>
+html, body {
+  font-family: 'Roboto', sans-serif;
+}
+</style>
 </head>
 
 <body>
@@ -56,6 +62,8 @@ statusCode and headers arguments lets route annotations specify default Http sta
   <span style="color: #a7a7a7; font-weight: bold">void</span> defaultStatusAndHeader() {}
 </pre></td></tr></table></div>
 
+<h3>HttpRequest object</h3>
+
 <p>
 HttpRequest object for the current request is automatically provided if it is the first argument of route handler.
 </p>
@@ -65,7 +73,7 @@ HttpRequest object for the current request is automatically provided if it is th
   <span style="color: #a7a7a7; font-weight: bold">void</span> inputHttpRequest(HttpRequest req) {}
 </pre></td></tr></table></div>
 
-<h2>Path variables</h2>
+<h3>Path variables</h3>
 
 <p>
 Path variables can be defined in the path argument by beginning the path segment with ':'. The path variable identifier follows ':'. Jaguar will automatically provide the path variable if it finds corresponding required argument in route handler.
@@ -91,7 +99,7 @@ Jaguar can parse multiple path variables in same route annotation.
   }
 </pre></td></tr></table></div>
 
-<h2>Query params</h2>
+<h3>Query params</h3>
 
 <p>
 Jaguar automatically provides query parameter through optional named parameters of the route handler.
@@ -108,6 +116,177 @@ Jaguar automatically provides query parameter through optional named parameters 
   }
 </pre></td></tr></table></div>
 
+<h1>Interceptors</h1>
+
+<p>
+An Interceptor wraps a route handler, meaning it executes before and after the route handler in the context of the current request. Routinue steps done in route handlers can be stripped out into interceptors, thus keeping the route handler concise and easy to read. Each route can be wrapped with multiple interceptors. Interceptors execute strictly in the order in which they are defined. A route handler inherits interceptors defined on its immediate parent RouteGroup or Api.
+</p>
+
+<p>
+<strong>Note:</strong> Interceptors in Jaguar are powerful and type safe than anyother web framework in any existing language.
+</p>
+
+<h2>Using an interceptor</h2>
+
+<p>
+A route can be wrapped with an interceptor by annotating the route with interceptor's wrapper. WrapEncodeToJson wrapper can be used to wrap EncodeToJson interceptor. EncodeToJson interceptor executes after route handler execution and converts the Map or List response returned by route to Json.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get()
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapEncodeToJson()
+  Map getJaguarInfo() =&gt; {
+    <span style="color: #CD5555">&#39;Name&#39;</span>: <span style="color: #CD5555">&#39;Jaguar&#39;</span>,
+    <span style="color: #CD5555">&#39;Features&#39;</span>: [<span style="color: #CD5555">&#39;Speed&#39;</span>, <span style="color: #CD5555">&#39;Simplicity&#39;</span>, <span style="color: #CD5555">&#39;Extensiblity&#39;</span>],
+  };
+</pre></td></tr></table></div>
+
+<h3>Getting result of an interceptor</h3>
+
+<p>
+Interceptors can return results that other interceptors and route handlers can use. Examples of such usage are:
+
+<ul>
+<li>Database interceptor that opens a connection to database and returns the db as result and closes the database after the route handler has executed</li>
+<li>Interceptor to decode body of the request</li>
+<li>Authentication interceptor</li>
+</ul>
+
+A route handler can request result of an interceptor to be injected into an argument by using the @Input annotation. 
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post()
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapDecodeJsonMap()
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(DecodeJsonMap)
+  Map createJaguarInfo(Map body) =&gt; body;
+</pre></td></tr></table></div>
+
+
+<h2>Create an interceptor</h2>
+
+<p>
+<div>An interceptor must extend from the base class Interceptor. It must provide either pre or post interceptor methods. An interceptor must also be complemented with a RouteWrapper. The RouteWrapper is used to annotate the route handler and knows how to create an interceptor instance.</div>
+
+<div>Below is an implementation of SampleInterceptor with its wrapper WrapSampleInterceptor.</div>
+</p>
+
+<p>
+<strong>Note:</strong> By convention routes must be named with a prefix of Wrap followed by the name of the interceptor it is wrapping.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">WrapSampleInterceptor</span> <span style="color: #8B008B; font-weight: bold">implements</span> RouteWrapper&lt;SampleInterceptor&gt; {
+  <span style="color: #8B008B; font-weight: bold">final</span> <span style="color: #a7a7a7; font-weight: bold">String</span> id;
+
+  <span style="color: #8B008B; font-weight: bold">final</span> Map&lt;Symbol, MakeParam&gt; makeParams = <span style="color: #8B008B; font-weight: bold">const</span> {};
+
+  <span style="color: #8B008B; font-weight: bold">const</span> WrapSampleInterceptor({<span style="color: #8B008B; font-weight: bold">this</span>.id});
+
+  SampleInterceptor createInterceptor() =&gt; <span style="color: #8B008B; font-weight: bold">new</span> SampleInterceptor();
+}
+
+<span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">SampleInterceptor</span> <span style="color: #8B008B; font-weight: bold">implements</span> Interceptor {
+  SampleInterceptor();
+
+  <span style="color: #a7a7a7; font-weight: bold">void</span> pre() {
+    print(<span style="color: #CD5555">&quot;Executes before request handler!&quot;</span>);
+  }
+
+  <span style="color: #a7a7a7; font-weight: bold">void</span> post() {
+    print(<span style="color: #CD5555">&quot;Executes after request handler!&quot;</span>);
+  }
+}
+</pre></td></tr></table></div>
+
+<h3>HttpRequest object</h3>
+
+<p>
+HttpRequest object for the current request is automatically provided if it is the first argument of interceptor method.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">NeedsHttpRequestInterceptor</span> <span style="color: #8B008B; font-weight: bold">implements</span> Interceptor {
+  NeedsHttpRequestInterceptor();
+
+  <span style="color: #228B22">/// [HttpRequest] object of the current request is automatically provided when</span>
+  <span style="color: #228B22">/// first argument of interceptor method is [HttpRequest]</span>
+  <span style="color: #a7a7a7; font-weight: bold">void</span> pre(HttpRequest req) {
+    print(<span style="color: #CD5555">&quot;Executes before request handler!&quot;</span>);
+  }
+
+  <span style="color: #228B22">/// [HttpRequest] object of the current request is automatically provided when</span>
+  <span style="color: #228B22">/// first argument of interceptor method is [HttpRequest]</span>
+  <span style="color: #a7a7a7; font-weight: bold">void</span> post(HttpRequest req) {
+    print(<span style="color: #CD5555">&quot;Executes after request handler!&quot;</span>);
+  }
+}
+</pre></td></tr></table></div>
+
+<h3>Getting result of another interceptor</h3>
+
+<p>
+Similar to route handlers, interceptor methods can request result of another interceptor to be injected into an argument by using the @Input annotation. resultFrom argument of @Input specifies which interceptor to get result from.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">InterceptorWithInput</span> <span style="color: #8B008B; font-weight: bold">implements</span> Interceptor {
+  InterceptorWithInput();
+
+  <span style="color: #228B22">/// [Input] annotation can be used to request result from another interceptor.</span>
+  <span style="color: #228B22">/// [resultFrom] argument of [Input] specifies which interceptor to get result from.</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(DecodeJsonMap)
+  <span style="color: #a7a7a7; font-weight: bold">void</span> pre(HttpRequest req, Map body) {
+    print(<span style="color: #CD5555">&quot;Executes before request handler!&quot;</span>);
+  }
+}
+</pre></td></tr></table></div>
 
 </body>
 
