@@ -59,21 +59,23 @@ header .title {
   margin-left: 15px;
 }
 
-#sidebar .li {
+#sidebar .li .hover {
   cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+#sidebar .li .hover:hover {
+  border-bottom: 2px solid #ce8f22;
 }
 
 #sidebar .main-items {
   margin-bottom: 5px;
+  color: #ce8f22;
+  font-size: 18px;
 }
 
 #sidebar .sub-menu > * {
   margin-bottom: 5px;
-}
-
-#sidebar .main-items a {
-  color: #ce8f22;
-  font-size: 18px;
 }
 
 header .nav-menu {
@@ -98,9 +100,9 @@ header .nav-menu-item:hover {
 }
 
 .jaguar-code {
-  padding: 0px 4px;
-  background-color: #e4e4e4;
-  border: 1px solid gray;
+  padding: 0px 3px;
+  background-color: #f9f9f9;
+  border: 1px solid #d6d6d6;
   border-radius: 5px;
 }
 </style>
@@ -405,23 +407,23 @@ Similar to route handlers, interceptor methods can request result of another int
 
 <aside id="sidebar">
 	<div class="ul">
-		<div class="li main-items"><a href="#route-handlers" onclick="scrollTo('route-handlers')">Route handlers</a></div>
+		<div class="li main-items" onclick="scrollTo('route-handlers')"><span class="hover">Route handlers</span></div>
 		<div class="ul sub-menu">
-		  <div class="li" onclick="scrollTo('route-handlers-defining-routes')">Defining Routes</div>
-		  <div class="li" onclick="scrollTo('route-handlers-httprequest-object')">HttpRequest object</div>
-		  <div class="li" onclick="scrollTo('route-handlers-path-variables')">Path variables</div>
-		  <div class="li" onclick="scrollTo('route-handlers-query-params')">Query params</div>
+		  <div class="li" onclick="scrollTo('route-handlers-defining-routes')"><span class="hover">Defining Routes</span></div>
+		  <div class="li" onclick="scrollTo('route-handlers-httprequest-object')"><span class="hover">HttpRequest object</span></div>
+		  <div class="li" onclick="scrollTo('route-handlers-path-variables')"><span class="hover">Path variables</span></div>
+		  <div class="li" onclick="scrollTo('route-handlers-query-params')"><span class="hover">Query params</span></div>
 		</div>
-		<div class="li main-items" onclick="scrollTo('interceptors')"><a href="#interceptors">Interceptors</a></div>
+		<div class="li main-items" onclick="scrollTo('interceptors')"><span class="hover">Interceptors</span></div>
 		<div class="ul sub-menu">
-		  <div class="li" onclick="scrollTo('interceptors-using-an-interceptor')">Using an interceptor</div>
+		  <div class="li" onclick="scrollTo('interceptors-using-an-interceptor')"><span class="hover">Using an interceptor</span></div>
 			<div class="ul sub-menu">
-				<div class="li" onclick="scrollTo('interceptors-getting-result-of-an-interceptor')">Getting result of an interceptor</div>
+				<div class="li" onclick="scrollTo('interceptors-getting-result-of-an-interceptor')"><span class="hover">Getting result of an interceptor</span></div>
 			</div>
-		  <div class="li" onclick="scrollTo('interceptors-create-an-interceptor')">Create an interceptor</div>
+		  <div class="li" onclick="scrollTo('interceptors-create-an-interceptor')"><span class="hover">Create an interceptor</span></div>
 			<div class="ul sub-menu">
-				<div class="li" onclick="scrollTo('interceptors-httprequest-object')">HttpRequest object</div>
-				<div class="li" onclick="scrollTo('interceptors-getting-result-of-another-interceptor')">Getting result of another interceptor</div>
+				<div class="li" onclick="scrollTo('interceptors-httprequest-object')"><span class="hover">HttpRequest object</span></div>
+				<div class="li" onclick="scrollTo('interceptors-getting-result-of-another-interceptor')"><span class="hover">Getting result of another interceptor</span></div>
 			</div>
 		</div>
 	</div>
