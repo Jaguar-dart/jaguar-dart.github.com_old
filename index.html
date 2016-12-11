@@ -130,7 +130,7 @@ header .nav-menu-item:hover {
 <article id="article">
 <h1><a name="route-handlers" href="#route-handlers">Route handlers</a></h1>
 <p>
-Routes are implemented as methods of a <span class="jaguar-code">RouteGroup</span> or <span class="jaguar-code">Api</span> class. For Jaguar to understand that the methods are route handlers, they must be annotated with one of the Jaguar route annotations (<span class="jaguar-code">@Route</span>, <span class="jaguar-code">@Get</span>, <span class="jaguar-code">@Post</span>, <span class="jaguar-code">@Put</span>, <span class="jaguar-code">@Delete</span>). RouteGroup allows grouping of related routes at the same place. Multiple related route groups can be composed into an Api.
+Routes are implemented as methods of a <span class="jaguar-code">RequestHandler</span> class. For Jaguar to understand that the methods are route handlers, they must be annotated with one of the Jaguar route annotations (<span class="jaguar-code">@Route</span>, <span class="jaguar-code">@Get</span>, <span class="jaguar-code">@Post</span>, <span class="jaguar-code">@Put</span>, <span class="jaguar-code">@Delete</span>). RouteGroup allows grouping of related routes at the same place. Multiple related route groups can be composed into an Api.
 </p>
 
 <h2><a name="route-handlers-defining-routes" href="#route-handlers-defining-routes">Defining Routes</a></h2>
@@ -288,7 +288,7 @@ A route handler can request result of an interceptor to be injected into an argu
 <h2><a name="interceptors-create-an-interceptor" href="#interceptors-create-an-interceptor">Create an interceptor</a></h2>
 
 <p>
-<div>An interceptor must extend from the base class <span class="jaguar-code">Interceptor</span>. It must provide either pre or post interceptor methods. An interceptor must also be complemented with a RouteWrapper. The RouteWrapper is used to annotate the route handler and knows how to create an interceptor instance.</div>
+<div>An interceptor must extend from the base class <span class="jaguar-code">Interceptor</span>. It must implement atleast one of <span class="jaguar-code">pre</span> or <span class="jaguar-code">post</span> interceptor methods. An interceptor must also be complemented with a RouteWrapper. The RouteWrapper is used to annotate the route handler and knows how to create an interceptor instance.</div>
 
 <div>Below is an implementation of SampleInterceptor with its wrapper WrapSampleInterceptor.</div>
 </p>
