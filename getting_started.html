@@ -87,23 +87,83 @@ header .nav-menu-item:hover {
 <h2>Installing Jaguar</h2>
 
 <p>
-Here we will write about installing Jaguar.
+Jaguar uses `jaguar` command for building, watching for changes and creating
+ boilerplates. Execute the following command to install `jaguar` command:
+</p>
+
+<pre>
+  pub global activate jaguar
+</pre>
+
+<p>
+  Now `jaguar` command must be included in your system path. Type `jaguar` in your
+  command line to list the list of commands jaguar supports.
+</p>
+
+<p>
+  More information about jaguar command can be found in <a href="https://jaguar-dart.github.io/command.html">jaguar command referece</a>.
 </p>
 
 <h2>Hello world</h2>
 
 <p>
-Here we will write about clonning a sample Jaguar project. We will also analyse the
-basic code and file structure.
+  In this section, we will clone a tiny example project from github and analyse basics of Jaguar.
 </p>
 
-<h2>Building RouteGroups and Api</h2>
+<pre>
+  git clone https://github.com/Jaguar-dart/boilerplate.git
+</pre>
+
+<h3>Routes, RouteGroups and Api</h3>
 
 <p>
-Here we write about using jaguar build.
+  In Jaguar, related routes are composed into a RouteGroup and related RouteGroups
+  are composed into an Api.
 </p>
 
-<h2>Seeing it in action</h2>
+<p><strong>Note:</strong>This is a simple project for demonstration. So it doesn't have models, static files, etc.</p>
+
+<p>
+  The RouteGroups and Api reside in `lib/api.dart` dart file. Notice the following line `part 'api.g.dart';`.
+  Later, we will generate `api.g.dart` using the command `jaguar build`. `api.g.dart` will have
+  declaration of `_$JaguarExampleApi` and `_$JaguarExampleRouteGroup`.
+</p>
+
+<h3>The main function</h3>
+
+<p>
+  Finally the server is configured to run on specific host, port and serve specified
+  Apis. This can be found in `bin/server.dart` dart file.
+</p>
+
+<h2>Building RouteGroup and Api</h2>
+
+<h3>jaguar.yaml</h3>
+
+<p>
+`jaguar` command uses `jaguar.yaml` located in root directory of the project for configurations.
+`jaguar.yaml` is used to convey the files to be built by jaguar and the location of the server main file.
+`apis` sequence is used to list the list of files jaguar has to build. We will learn what scalar `bin`
+does in the section below.
+</p>
+
+<h3>Building</h3>
+
+<p>
+Type the following command from the root directory of the project to build the project:
+</p>
+
+<pre>
+  jaguar build
+</pre>
+
+<p>
+`jaguar` command parses the `jaguar.yaml` file and generates all the necessary dart files.
+In this case `api.g.dart`. Take a peek at the baremetal performant dart code Jaguar generated
+for you from the annotations. Pure magic!
+</p>
+
+<h2>Seeing it all in action</h2>
 
 <p>
 Here we show code, execution results of running jaguar server and dart client side-by-side.
