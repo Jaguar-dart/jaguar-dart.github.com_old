@@ -1,0 +1,453 @@
+<html>
+
+<head>
+<title>Jaguar reference</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+<style>
+html, body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a {
+  color: #ce8f22;
+  text-decoration: none;
+  outline: none;
+}
+</style>
+
+<style>
+header {
+  width: 100%;
+  border-top: 5px solid #ce8f22;
+  height: 40px;
+  background-color: black;
+}
+
+header .title {
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  font-size: 25px;
+  margin-left: calc(10% + 25px);
+}
+
+header .nav-menu {
+  color: #d49b2b;
+  margin-left: 100px;
+  font-size: 25px;
+}
+
+header .nav-menu-item {
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+header .nav-menu-item a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+header .nav-menu-item:hover {
+  border-bottom: 2px solid white;
+}
+</style>
+
+<style>
+#article {
+  margin: 0px calc(10% + 350px) 5px 10%;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+#sidebar {
+  width: 350px;
+  padding: 5px;
+  position: fixed;
+  right: 0px;
+  top: 50px;
+}
+
+#sidebar a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+#sidebar .ul {
+  margin-left: 15px;
+}
+
+#sidebar .li .hover {
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+#sidebar .li .hover:hover {
+  border-bottom: 2px solid #ce8f22;
+}
+
+#sidebar .main-items {
+  margin-bottom: 5px;
+  color: #ce8f22;
+  font-size: 18px;
+}
+
+#sidebar .sub-menu > * {
+  margin-bottom: 5px;
+}
+
+.jaguar-code {
+  padding: 0px 3px;
+  background-color: #f9f9f9;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+}
+</style>
+
+<script>
+	function scrollTo(name) {
+	  var selector = 'a[name="'+name+'"]';
+	  document.querySelector(selector).scrollIntoView({behavior: 'smooth'});
+	}
+</script>
+</head>
+
+<body>
+
+<header>
+	<span class="title">Jaguar::Reference</span>
+
+	<span class="nav-menu">
+    <span class="nav-menu-item">Api documentation</span>
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
+    <span class="nav-menu-item"><a href="https://pub.dartlang.org/packages/jaguar">Pub</a></span>
+  </span>
+</header>
+
+<article id="article">
+<h1><a name="route-handlers" href="#route-handlers">Route handlers</a></h1>
+<p>
+Routes are implemented as methods of a <span class="jaguar-code">RequestHandler</span> class. For Jaguar to understand that the methods are route handlers, they must be annotated with one of the Jaguar route annotations (<span class="jaguar-code">@Route</span>, <span class="jaguar-code">@Get</span>, <span class="jaguar-code">@Post</span>, <span class="jaguar-code">@Put</span>, <span class="jaguar-code">@Delete</span>). RouteGroup allows grouping of related routes at the same place. Multiple related route groups can be composed into an Api.
+</p>
+
+<h2><a name="route-handlers-defining-routes" href="#route-handlers-defining-routes">Defining Routes</a></h2>
+<p>
+Writing a route is as simple as writing a method! @Route annotation informs Jaguar that the method is a route. Path of the route is specified using the <span class="jaguar-code">path</span> argument.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Route(path: <span style="color: #CD5555">&#39;/books&#39;</span>)
+  List&lt;Map&gt; getAllBooks() =&gt; _books.map((book) =&gt; book.toMap()).toList();
+</pre></td></tr></table></div>
+
+
+<p>
+<span class="jaguar-code">method</span> argument lets route annotations specify the methods the route should respond to. By default, a route will respond to GET, POST, PUT, PATCH, DELETE and OPTIONS methods.
+</p>
+
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Route(path: <span style="color: #CD5555">&#39;/books&#39;</span>, methods: <span style="color: #8B008B; font-weight: bold">const</span> &lt;<span style="color: #a7a7a7; font-weight: bold">String</span>&gt;[<span style="color: #CD5555">&#39;GET&#39;</span>])
+  List&lt;Map&gt; getAllBooks1() =&gt; _books.map((book) =&gt; book.toMap()).toList();
+</pre></td></tr></table></div>
+
+<p>
+<span class="jaguar-code">@Get</span> is a route annotation sugar to respond to only GET requests. Similarly sugars exist for <span class="jaguar-code">@Post</span>, <span class="jaguar-code">@Put</span>, <span class="jaguar-code">@Delete</span>.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(path: <span style="color: #CD5555">&#39;/books&#39;</span>)
+  List&lt;Map&gt; getAllBooks2() =&gt; _books.map((book) =&gt; book.toMap()).toList();
+</pre></td></tr></table></div>
+
+<p>
+<span class="jaguar-code">statusCode</span> and <span class="jaguar-code">headers</span> arguments lets route annotations specify default Http status and headers.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(
+      path: <span style="color: #CD5555">&#39;/inject/httprequest&#39;</span>,
+      statusCode: <span style="color: #B452CD">200</span>,
+      headers: <span style="color: #8B008B; font-weight: bold">const</span> {<span style="color: #CD5555">&#39;custom-header&#39;</span>: <span style="color: #CD5555">&#39;custom data&#39;</span>})
+  <span style="color: #a7a7a7; font-weight: bold">void</span> defaultStatusAndHeader() {}
+</pre></td></tr></table></div>
+
+<h2><a name="route-handlers-httprequest-object" href="#route-handlers-httprequest-object">HttpRequest object</a></h2>
+
+<p>
+<span class="jaguar-code">HttpRequest</span> object for the current request is automatically provided if it is the first argument of route handler.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(path: <span style="color: #CD5555">&#39;/inject/httprequest&#39;</span>)
+  <span style="color: #a7a7a7; font-weight: bold">void</span> inputHttpRequest(HttpRequest req) {}
+</pre></td></tr></table></div>
+
+<h2><a name="route-handlers-path-variables" href="#route-handlers-path-variables">Path variables</a></h2>
+
+<p>
+Path variables can be defined in the path argument by beginning the path segment with <span class="jaguar-code">':'</span>. The path variable identifier follows <span class="jaguar-code">':'</span>. Jaguar will automatically provide the path variable if it finds corresponding required argument in route handler.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(path: <span style="color: #CD5555">&#39;/book/:id&#39;</span>)
+  <span style="color: #a7a7a7; font-weight: bold">String</span> getBookById(<span style="color: #a7a7a7; font-weight: bold">String</span> id) =&gt; _books[id]?.toJson();
+</pre></td></tr></table></div>
+
+<p>
+Jaguar can parse multiple path variables in same route annotation.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(path: <span style="color: #CD5555">&#39;/book/:book/:author&#39;</span>)
+  <span style="color: #a7a7a7; font-weight: bold">void</span> createBook(<span style="color: #a7a7a7; font-weight: bold">String</span> book, <span style="color: #a7a7a7; font-weight: bold">String</span> author)  {
+    <span style="color: #a7a7a7; font-weight: bold">String</span> newId = _newId();
+    _books[newId] = <span style="color: #8B008B; font-weight: bold">new</span> Book.make(newId, book, [author]);
+  }
+</pre></td></tr></table></div>
+
+<h2><a name="route-handlers-query-params" href="#route-handlers-query-params">Query params</a></h2>
+
+<p>
+Jaguar automatically provides query parameter through optional named parameters of the route handler.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post()
+  <span style="color: #a7a7a7; font-weight: bold">void</span> createBook({<span style="color: #a7a7a7; font-weight: bold">String</span> book, <span style="color: #a7a7a7; font-weight: bold">String</span> author})  {
+    <span style="color: #a7a7a7; font-weight: bold">String</span> newId = _newId();
+    _books[newId] = <span style="color: #8B008B; font-weight: bold">new</span> Book.make(newId, book, [author]);
+  }
+</pre></td></tr></table></div>
+
+<h1><a name="interceptors" href="#interceptors">Interceptors</a></h1>
+
+<p>
+An Interceptor wraps a route handler, meaning it executes before and after the route handler in the context of the current request. Routinue steps done in route handlers can be stripped out into interceptors, thus keeping the route handler concise and easy to read. Each route can be wrapped with multiple interceptors. Interceptors execute strictly in the order in which they are defined. A route handler inherits interceptors defined on its immediate parent RouteGroup or Api.
+</p>
+
+<p>
+<strong>Note:</strong> Interceptors in Jaguar are powerful and type safe than anyother web framework in any existing language.
+</p>
+
+<h2><a name="interceptors-using-an-interceptor" href="#interceptors-using-an-interceptor">Using an interceptor</a></h2>
+
+<p>
+A route can be wrapped with an interceptor by annotating the route with interceptor's wrapper. <span class="jaguar-code">WrapEncodeToJson</span> wrapper can be used to wrap <span class="jaguar-code">EncodeToJson</span> interceptor. <span class="jaguar-code">EncodeToJson</span> interceptor executes after route handler execution and converts the Map or List response returned by route to Json.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get()
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapEncodeToJson()
+  Map getJaguarInfo() =&gt; {
+    <span style="color: #CD5555">&#39;Name&#39;</span>: <span style="color: #CD5555">&#39;Jaguar&#39;</span>,
+    <span style="color: #CD5555">&#39;Features&#39;</span>: [<span style="color: #CD5555">&#39;Speed&#39;</span>, <span style="color: #CD5555">&#39;Simplicity&#39;</span>, <span style="color: #CD5555">&#39;Extensiblity&#39;</span>],
+  };
+</pre></td></tr></table></div>
+
+<h3><a name="interceptors-getting-result-of-an-interceptor" href="#interceptors-getting-result-of-an-interceptor">Getting result of an interceptor</a></h3>
+
+<p>
+Interceptors can return results that other interceptors and route handlers can use. Examples of such usage are:
+
+<ul>
+<li>Database interceptor that opens a connection to database and returns the db as result and closes the database after the route handler has executed</li>
+<li>Interceptor to decode body of the request</li>
+<li>Authentication interceptor</li>
+</ul>
+
+A route handler can request result of an interceptor to be injected into an argument by using the <span class="jaguar-code">@Input</span> annotation. <span class="jaguar-code">resultFrom</span> argument of <span class="jaguar-code">@Input</span> specifies which interceptor to get result from.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4</pre></td><td><pre style="margin: 0; line-height: 125%">  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post()
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapDecodeJsonMap()
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(DecodeJsonMap)
+  Map createJaguarInfo(Map body) =&gt; body;
+</pre></td></tr></table></div>
+
+
+<h2><a name="interceptors-create-an-interceptor" href="#interceptors-create-an-interceptor">Create an interceptor</a></h2>
+
+<p>
+<div>An interceptor must extend from the base class <span class="jaguar-code">Interceptor</span>. It must implement atleast one of <span class="jaguar-code">pre</span> or <span class="jaguar-code">post</span> interceptor methods. An interceptor must also be complemented with a RouteWrapper. The RouteWrapper is used to annotate the route handler and knows how to create an interceptor instance.</div>
+
+<div>Below is an implementation of SampleInterceptor with its wrapper WrapSampleInterceptor.</div>
+</p>
+
+<p>
+<strong>Note:</strong> By convention routes must be named with a prefix of <span class="jaguar-code">Wrap</span> followed by the name of the interceptor it is wrapping.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">WrapSampleInterceptor</span> <span style="color: #8B008B; font-weight: bold">implements</span> RouteWrapper&lt;SampleInterceptor&gt; {
+  <span style="color: #8B008B; font-weight: bold">final</span> <span style="color: #a7a7a7; font-weight: bold">String</span> id;
+
+  <span style="color: #8B008B; font-weight: bold">final</span> Map&lt;Symbol, MakeParam&gt; makeParams = <span style="color: #8B008B; font-weight: bold">const</span> {};
+
+  <span style="color: #8B008B; font-weight: bold">const</span> WrapSampleInterceptor({<span style="color: #8B008B; font-weight: bold">this</span>.id});
+
+  SampleInterceptor createInterceptor() =&gt; <span style="color: #8B008B; font-weight: bold">new</span> SampleInterceptor();
+}
+
+<span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">SampleInterceptor</span> <span style="color: #8B008B; font-weight: bold">implements</span> Interceptor {
+  SampleInterceptor();
+
+  <span style="color: #a7a7a7; font-weight: bold">void</span> pre() {
+    print(<span style="color: #CD5555">&quot;Executes before request handler!&quot;</span>);
+  }
+
+  <span style="color: #a7a7a7; font-weight: bold">void</span> post() {
+    print(<span style="color: #CD5555">&quot;Executes after request handler!&quot;</span>);
+  }
+}
+</pre></td></tr></table></div>
+
+<h3><a name="interceptors-httprequest-object" href="#interceptors-httprequest-object">HttpRequest object</a></h3>
+
+<p>
+<span class="jaguar-code">HttpRequest</span> object for the current request is automatically provided if it is the first argument of interceptor method.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">NeedsHttpRequestInterceptor</span> <span style="color: #8B008B; font-weight: bold">implements</span> Interceptor {
+  NeedsHttpRequestInterceptor();
+
+  <span style="color: #228B22">/// [HttpRequest] object of the current request is automatically provided when</span>
+  <span style="color: #228B22">/// first argument of interceptor method is [HttpRequest]</span>
+  <span style="color: #a7a7a7; font-weight: bold">void</span> pre(HttpRequest req) {
+    print(<span style="color: #CD5555">&quot;Executes before request handler!&quot;</span>);
+  }
+
+  <span style="color: #228B22">/// [HttpRequest] object of the current request is automatically provided when</span>
+  <span style="color: #228B22">/// first argument of interceptor method is [HttpRequest]</span>
+  <span style="color: #a7a7a7; font-weight: bold">void</span> post(HttpRequest req) {
+    print(<span style="color: #CD5555">&quot;Executes after request handler!&quot;</span>);
+  }
+}
+</pre></td></tr></table></div>
+
+<h3><a name="interceptors-getting-result-of-another-interceptor" href="#interceptors-getting-result-of-another-interceptor">Getting result of another interceptor</a></h3>
+
+<p>
+Similar to route handlers, interceptor methods can request result of another interceptor to be injected into an argument by using the <span class="jaguar-code">@Input</span> annotation. <span class="jaguar-code">resultFrom</span> argument of <span class="jaguar-code">@Input</span> specifies which interceptor to get result from.
+</p>
+
+<div style="background: #eeeedd; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">InterceptorWithInput</span> <span style="color: #8B008B; font-weight: bold">implements</span> Interceptor {
+  InterceptorWithInput();
+
+  <span style="color: #228B22">/// [Input] annotation can be used to request result from another interceptor.</span>
+  <span style="color: #228B22">/// [resultFrom] argument of [Input] specifies which interceptor to get result from.</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(DecodeJsonMap)
+  <span style="color: #a7a7a7; font-weight: bold">void</span> pre(HttpRequest req, Map body) {
+    print(<span style="color: #CD5555">&quot;Executes before request handler!&quot;</span>);
+  }
+}
+</pre></td></tr></table></div>
+</article>
+
+<aside id="sidebar">
+	<div class="ul">
+		<div class="li main-items" onclick="scrollTo('route-handlers')"><span class="hover">Route handlers</span></div>
+		<div class="ul sub-menu">
+		  <div class="li" onclick="scrollTo('route-handlers-defining-routes')"><span class="hover">Defining Routes</span></div>
+		  <div class="li" onclick="scrollTo('route-handlers-httprequest-object')"><span class="hover">HttpRequest object</span></div>
+		  <div class="li" onclick="scrollTo('route-handlers-path-variables')"><span class="hover">Path variables</span></div>
+		  <div class="li" onclick="scrollTo('route-handlers-query-params')"><span class="hover">Query params</span></div>
+		</div>
+		<div class="li main-items" onclick="scrollTo('interceptors')"><span class="hover">Interceptors</span></div>
+		<div class="ul sub-menu">
+		  <div class="li" onclick="scrollTo('interceptors-using-an-interceptor')"><span class="hover">Using an interceptor</span></div>
+			<div class="ul sub-menu">
+				<div class="li" onclick="scrollTo('interceptors-getting-result-of-an-interceptor')"><span class="hover">Getting result of an interceptor</span></div>
+			</div>
+		  <div class="li" onclick="scrollTo('interceptors-create-an-interceptor')"><span class="hover">Create an interceptor</span></div>
+			<div class="ul sub-menu">
+				<div class="li" onclick="scrollTo('interceptors-httprequest-object')"><span class="hover">HttpRequest object</span></div>
+				<div class="li" onclick="scrollTo('interceptors-getting-result-of-another-interceptor')"><span class="hover">Getting result of another interceptor</span></div>
+			</div>
+		</div>
+		<div class="li main-items" onclick="scrollTo('session')"><span class="hover">Session</span></div>
+		<div class="ul sub-menu">
+		  <div class="li" onclick="scrollTo('session-cookie')"><span class="hover">Cookie</span></div>
+		  <div class="li" onclick="scrollTo('session-jwt-on-cookie')"><span class="hover">Jwt on cookie</span></div>
+		  <div class="li" onclick="scrollTo('session-jwt-on-authorization-header')"><span class="hover">Jwt on Authorization header</span></div>
+		  <div class="li" onclick="scrollTo('session-implement-custom-session-manager')"><span class="hover">Implement custom session manager</span></div>
+		</div>
+		<div class="li main-items" onclick="scrollTo('authentication')"><span class="hover">Authentication</span></div>
+		<div class="ul sub-menu">
+		  <div class="li" onclick="scrollTo('authentication-basic-authentication')"><span class="hover">Basic authentication</span></div>
+		  <div class="li" onclick="scrollTo('authentication-username-password-on-urlencodedform')"><span class="hover">Username password on UrlEncodedForm</span></div>
+		  <div class="li" onclick="scrollTo('authentication-username-password-on-json')"><span class="hover">Username password on Json</span></div>
+		  <div class="li" onclick="scrollTo('authentication-implement-custom-authenticator')"><span class="hover">Implement custom Authenticator</span></div>
+		</div>
+		<div class="li main-items" onclick="scrollTo('authorisation')"><span class="hover">Authorisation</span></div>
+	</div>
+</aside>
+</body>
+
+</html>
