@@ -65,6 +65,33 @@ header .nav-menu-item:hover {
   margin: 0px calc(10%) 5px 10%;
   font-size: 16px;
   line-height: 22px;
+  max-width: 900px;
+}
+</style>
+
+<style>
+.output-container {
+  display: flex;
+  width: 100%;
+}
+
+.server-output, .client-output {
+  width: 50%;
+}
+
+.server-output {
+  margin-right: 10px;
+}
+
+.code-index {
+  font-weight: bold;
+}
+
+.output-content {
+  overflow: auto;
+  height: 300px;
+  background-color: #efefef;
+  font-size: 14px;
 }
 </style>
 
@@ -84,7 +111,7 @@ header .nav-menu-item:hover {
 
 <article id="article">
 
-<h2>Installing Jaguar</h2>
+<h2><a name="installing-jaguar" href="#installing-jaguar">Installing Jaguar</a></h2>
 
 <p>
 Jaguar uses `jaguar` command for building, watching for changes and creating
@@ -104,7 +131,7 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
   More information about jaguar command can be found in <a href="https://jaguar-dart.github.io/command.html">jaguar command referece</a>.
 </p>
 
-<h2>Hello world</h2>
+<h2><a name="hello-world" href="#hello-world">Hello world</a></h2>
 
 <p>
   In this section, we will clone a tiny example project from github and analyse basics of Jaguar.
@@ -112,9 +139,11 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
 
 <pre>
   git clone https://github.com/Jaguar-dart/boilerplate.git
+  cd boilerplate
+  pub get
 </pre>
 
-<h3>Routes, RouteGroups and Api</h3>
+<h3><a name="routes-routegroups-api" href="#routes-routegroups-api">Routes, RouteGroups and Api</a></h3>
 
 <p>
   In Jaguar, related routes are composed into a RouteGroup and related RouteGroups
@@ -129,16 +158,16 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
   declaration of `_$JaguarExampleApi` and `_$JaguarExampleRouteGroup`.
 </p>
 
-<h3>The main function</h3>
+<h3><a name="the-main-function" href="#the-main-function">The main function</a></h3>
 
 <p>
   Finally the server is configured to run on specific host, port and serve specified
   Apis. This can be found in `bin/server.dart` dart file.
 </p>
 
-<h2>Building RouteGroup and Api</h2>
+<h2><a name="building-routegroup-and-api" href="#building-routegroup-and-api">Building RouteGroup and Api</a></h2>
 
-<h3>jaguar.yaml</h3>
+<h3><a name="jaguar-yaml" href="#jaguar-yaml">jaguar.yaml</a></h3>
 
 <p>
 `jaguar` command uses `jaguar.yaml` located in root directory of the project for configurations.
@@ -147,7 +176,7 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
 does in the section below.
 </p>
 
-<h3>Building</h3>
+<h3><a name="building" href="#building">Building</a></h3>
 
 <p>
 Type the following command from the root directory of the project to build the project:
@@ -163,22 +192,119 @@ In this case `api.g.dart`. Take a peek at the baremetal performant dart code Jag
 for you from the annotations. Pure magic!
 </p>
 
-<h2>Seeing it all in action</h2>
+<h2><a name="seeing-it-all-in-action" href="#seeing-it-all-in-action">Seeing it all in action</a></h2>
 
 <p>
-Here we show code, execution results of running jaguar server and dart client side-by-side.
+The `bin/client.dart` dart file contains example client to test the example server.
+In this section, we will launch the example server and test it with the example client.
 </p>
 
-<h2>Watching for changes</h2>
+<div class="output-container">
+  <div class="server-output">
+    <div class="code-index">Server output</div>
+    <pre class="output-content">
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:7 J]: Running on http://0.0.0.0:8080/
+[@12-13 14:9 J.Req]: Method: GET Url: /api/version
+[@12-13 14:9 J.Req]: Method: GET Url: /api/info
+    </pre>
+  </div>
+
+  <div class="client-output">
+    <div class="code-index">Client output</div>
+    <pre class="output-content">
+=========================
+body:
+0.1
+statusCode:
+200
+headers:
+x-frame-options: SAMEORIGIN
+content-type: text/plain; charset=utf-8
+x-xss-protection: 1; mode=block
+x-content-type-options: nosniff
+transfer-encoding: chunked
+
+cookies:
+[]
+=========================
+=========================
+body:
+{name: jaguar, motto: Speed. Simplicity. Extensiblity., degree of awesomeness: infinity!}
+statusCode:
+200
+headers:
+x-frame-options: SAMEORIGIN
+content-type: text/plain; charset=utf-8
+x-xss-protection: 1; mode=block
+x-content-type-options: nosniff
+transfer-encoding: chunked
+
+cookies:
+[]
+=========================
+    </pre>
+  </div>
+</div>
 
 <p>
-Here we write about watching for changes and restarting the server.
+If you have multicore processor, jaguar will launch multiple isolates and listen
+to requests parallely. This is very handy to increase requests/s. It can be turned off
+using configuration.
 </p>
 
-<h2>Next step forward</h2>
+<h2><a name="watching-for-changes" href="#watching-for-changes">Watching for changes</a></h2>
 
 <p>
-Here we link to various Jaguar resources, references and good blog posts.
+TODO!
+</p>
+
+<h2><a name="next-step-forward" href="#next-step-forward">Next step forward</a></h2>
+
+<h3><a name="gitter" href="#gitter">Gitter</a></h3>
+
+<p>
+Chat with us on gitter:
+
+<ul>
+  <li><a href="https://gitter.im/jaguar_dart/jaguar">https://gitter.im/jaguar_dart/jaguar</a></li>
+  <li><a href="https://gitter.im/dart-lang/server">https://gitter.im/dart-lang/server</a></li>
+</ul>
+</p>
+
+<h3><a name="docs" href="#docs">Docs</a></h3>
+
+<p>
+  <ul>
+    <li><a href="https://jaguar-dart.github.io">Introduction</a></li>
+    <li><a href="https://jaguar-dart.github.io/command.html">Command</a></li>
+    <li>Dart docs</li>
+    <li>Blog</li>
+  </ul>
+</p>
+
+<h3><a name="support-packages" href="#support-packages">Support packages</a></h3>
+
+<p>
+Jaguar has a healthy ecosystem of supporting packages. Browse our support packages at:
+<a href="https://github.com/Jaguar-dart">https://github.com/Jaguar-dart</a>.
+
+Some of the useful ones are:
+
+<ul>
+  <li><a href="https://github.com/Jaguar-dart/jaguar_session">Session management</a></li>
+  <li><a href="https://github.com/Jaguar-dart/jaguar_auth">Authentication and authorisation</a></li>
+  <li><a href="https://github.com/Jaguar-dart/jaguar_mongo">MongoDB</a></li>
+  <li><a href="https://github.com/Jaguar-dart/jaguar_serializer">Serializer</a></li>
+  <li><a href="https://github.com/Jaguar-dart/jaguar_jwt">Jwt</a></li>
+  <li><a href="https://github.com/Jaguar-dart/jaguar_mustache">Mustache</a></li>
+</ul>
 </p>
 
 </article>
