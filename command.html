@@ -66,6 +66,13 @@ header .nav-menu-item:hover {
   font-size: 16px;
   line-height: 22px;
 }
+
+.jaguar-code {
+  padding: 0px 3px;
+  background-color: #f9f9f9;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+}
 </style>
 
 </head>
@@ -89,61 +96,131 @@ header .nav-menu-item:hover {
 <h2>build</h2>
 
 <p>
-Explain what build does
+Build command generates <span class="jaguar-code">Routehandler</span> for
+<span class="jaguar-code">RouteGroups</span>s and <span class="jaguar-code">Api</span>s.
 </p>
 
 <p>
-Flags documentation
+  It gets its configuration from <span class="jaguar-code">jaguar.yaml</span> file present in root directory of
+  the project. The <span class="jaguar-code">jaguar.yaml</span> should contain a sequence named <span class="jaguar-code">apis</span> and a
+  scalar named <span class="jaguar-code">bin</span>. The <span class="jaguar-code">apis</span> list the list of files in the project jaguar
+  must build. <span class="jaguar-code">bin</span> specifies the main file of the project.
+</p>
+
+<p>
+  <div><strong>Flags</strong></div>
+  Build command doesn't accept any flags.
+</p>
+
+<p>
+  <div><strong>Usage</strong></div>
+  <pre>
+  jaguar build
+  </pre>
+</p>
+
+<p>
+  <div><strong>Example jaguar.yaml</strong></div>
+  <div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">bin:
+    <span style="color: #4070a0">&#39;bin/server.dart&#39;</span>
+
+  apis:
+    - <span style="color: #4070a0">&#39;lib/api.dart&#39;</span>
+  </pre></div>
 </p>
 
 <h2>watch</h2>
 
 <p>
-Explain what watch does
+Watch command does what build does. But build executes once and finishes. While watch
+command watches for changes in code and generates everytime a project content is changed.
 </p>
 
 <p>
-Flags documentation
-</p>
-
-<h2>log</h2>
-
-<p>
-Explain what watch does
+  It also has the capability to run the server and restart when the project content are changed.
+  It gets which dart file to run from <span class="jaguar-code">bin</span> scalar in <span class="jaguar-code">jaguar.yaml</span> file.
 </p>
 
 <p>
-Flags documentation
+  <div><strong>Flags</strong></div>
+  Watch command doesn't accept any flags.
+</p>
+
+<p>
+  <div><strong>Usage</strong></div>
+  <pre>
+  jaguar watch
+  </pre>
+</p>
+
+<p>
+  <div><strong>Example jaguar.yaml</strong></div>
+  <div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">bin:
+    <span style="color: #4070a0">&#39;bin/server.dart&#39;</span>
+
+  apis:
+    - <span style="color: #4070a0">&#39;lib/api.dart&#39;</span>
+  </pre></div>
 </p>
 
 <h2>create::interceptor</h2>
 
 <p>
-Explain what create::interceptor does
+create::interceptor creates a boilerplate interceptor and its wrapper with given name.
 </p>
 
 <p>
-Flags documentation
-</p>
-
-<h2>create::boilerplate</h2>
-
-<p>
-Explain what create::boilerplate does
+  <div><strong>Flags</strong></div>
+  <ul>
+    <li><span class="jaguar-code">--name</span>: Name of the interceptor</li>
+  </ul>
 </p>
 
 <p>
-Flags documentation
+  <div><strong>Usage</strong></div>
+  <pre>
+  jaguar create::interceptor --name SomeInterceptor
+  </pre>
+</p>
+
+<h2>create::project</h2>
+
+<p>
+Creates a new project.
+</p>
+
+<p>
+  <div><strong>Flags</strong></div>
+  <ul>
+    <li><span class="jaguar-code">--name</span>: Name of the project</li>
+  </ul>
+</p>
+
+<p>
+  <div><strong>Usage</strong></div>
+  <pre>
+  jaguar create::project --name project_name
+  </pre>
 </p>
 
 <h2>create::routegroup</h2>
 
 <p>
-Explain what create::routegroup does
+Creates a RouteGroup.
 </p>
 
 <p>
-Flags documentation
+  <div><strong>Flags</strong></div>
+  <ul>
+    <li><span class="jaguar-code">--name</span>: Name of the RouteGroup</li>
+  </ul>
+</p>
+
+<p>
+  <div><strong>Usage</strong></div>
+  <pre>
+  jaguar create::routegroup --name UserResource
+  </pre>
 </p>
 
 </article>
