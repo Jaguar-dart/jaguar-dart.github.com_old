@@ -158,12 +158,58 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
   declaration of `_$JaguarExampleApi` and `_$JaguarExampleRouteGroup`.
 </p>
 
+<div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">library api;
+
+<span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;dart:async&#39;</span>;
+<span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;dart:io&#39;</span>;
+
+<span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;package:jaguar/jaguar.dart&#39;</span>;
+<span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;package:jaguar/interceptors.dart&#39;</span>;
+
+part <span style="color: #4070a0">&#39;api.g.dart&#39;</span>;
+
+<span style="color: #555555; font-weight: bold">@RouteGroup</span>(path: <span style="color: #4070a0">&#39;/info&#39;</span>)
+<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleRouteGroup</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleRouteGroup {
+  <span style="color: #555555; font-weight: bold">@Get</span>()
+  <span style="color: #555555; font-weight: bold">@WrapEncodeToJson</span>()
+  Map info() <span style="color: #666666">=&gt;</span> {
+    <span style="color: #4070a0">&#39;name&#39;</span>: <span style="color: #4070a0">&#39;jaguar&#39;</span>,
+    <span style="color: #4070a0">&#39;motto&#39;</span>: <span style="color: #4070a0">&#39;Speed. Simplicity. Extensiblity.&#39;</span>,
+    <span style="color: #4070a0">&#39;degree of awesomeness&#39;</span>: <span style="color: #4070a0">&#39;infinity!&#39;</span>,
+  };
+}
+
+<span style="color: #555555; font-weight: bold">@Api</span>(path: <span style="color: #4070a0">&#39;/api&#39;</span>)
+<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleApi</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleApi {
+  <span style="color: #555555; font-weight: bold">@Group</span>()
+  final ExampleRouteGroup exampleRoutes <span style="color: #666666">=</span> new ExampleRouteGroup();
+
+  <span style="color: #555555; font-weight: bold">@Route</span>(path: <span style="color: #4070a0">&#39;/version&#39;</span>, methods: const [<span style="color: #4070a0">&#39;GET&#39;</span>])
+  num version() <span style="color: #666666">=&gt;</span> <span style="color: #40a070">0.1</span>;
+}
+</pre></div>
+
 <h3><a name="the-main-function" href="#the-main-function">The main function</a></h3>
 
 <p>
   Finally the server is configured to run on specific host, port and serve specified
   Apis. This can be found in `bin/server.dart` dart file.
 </p>
+
+<div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;package:jaguar/jaguar.dart&#39;</span> <span style="color: #007020; font-weight: bold">as</span> jaguar;
+
+<span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;package:boilerplate/api.dart&#39;</span>;
+
+main(List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> args) async {
+  ExampleApi ea <span style="color: #666666">=</span> new ExampleApi();
+
+  jaguar<span style="color: #666666">.</span>Configuration configuration <span style="color: #666666">=</span>
+      new jaguar<span style="color: #666666">.</span>Configuration(multiThread: true);
+  configuration<span style="color: #666666">.</span>addApi(ea);
+
+  await jaguar<span style="color: #666666">.</span>serve(configuration);
+}
+</pre></div>
 
 <h2><a name="building-routegroup-and-api" href="#building-routegroup-and-api">Building RouteGroup and Api</a></h2>
 
@@ -175,6 +221,13 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
 `apis` sequence is used to list the list of files jaguar has to build. We will learn what scalar `bin`
 does in the section below.
 </p>
+
+<div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">bin: <span style="color: #4070a0">&#39;bin/server.dart&#39;</span>
+
+apis:
+  - <span style="color: #4070a0">&#39;lib/api.dart&#39;</span>
+</pre></div>
+
 
 <h3><a name="building" href="#building">Building</a></h3>
 
