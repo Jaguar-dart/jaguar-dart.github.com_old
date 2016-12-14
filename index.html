@@ -114,11 +114,36 @@ article {
 }
 
 #introducing-motto {
-    font-size: 22px;
-    margin-top: 20px;
+  font-size: 22px;
+  margin-top: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+#introducing-motto-bar {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  height: 3px;
+  background-color: #68006C;
+  animation: motto-anim 10s infinite;
 }
 
 .introducing-motto-item {
+}
+
+.introducing-motto-item-simplicity {
+}
+
+.introducing-motto-item-speed {
+}
+
+.introducing-motto-item-extensibility {
+}
+
+@keyframes motto-anim {
+  0%   { width: 0%; }
+  100% { width: 100%; }
 }
 </style>
 
@@ -149,12 +174,12 @@ article {
 }
 
 .card-icon {
-width: 100px;
-height: 80px;
-background-size: contain;
-background-position: center;
-background-repeat: no-repeat;
-margin-bottom: 10px;
+  width: 100px;
+  height: 80px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 10px;
 }
 
 .card-icon-getstarted {
@@ -213,9 +238,11 @@ margin-bottom: 10px;
   </div>
 
   <div id="introducing-motto">
-    <span class="introducing-motto-item">Extensiblity. </span>
-    <span class="introducing-motto-item">Speed. </span>
-    <span class="introducing-motto-item">Simplicity. </span>
+    <span class="introducing-motto-item introducing-motto-item-simplicity">Simplicity. </span>
+    <span class="introducing-motto-item-speed">Speed. </span>
+    <span class="introducing-motto-item-extensibility">Extensiblity. </span>
+
+    <div id="introducing-motto-bar"></div>
   </div>
 </article>
 
