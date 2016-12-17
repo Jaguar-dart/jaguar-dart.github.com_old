@@ -1,0 +1,182 @@
+<html>
+
+<head>
+<title>Jaguar reference</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+<style>
+html, body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  line-height: 25px;
+  font-size: 15px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: normal;
+  color: #ce8f22;
+  text-decoration: none;
+  outline: none;
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a {
+  color: #ce8f22;
+  text-decoration: none;
+  outline: none;
+}
+</style>
+
+<style>
+header {
+  width: 100%;
+  border-top: 5px solid #ce8f22;
+  height: 40px;
+  background-color: black;
+	overflow: hidden;
+}
+
+header .title {
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+header .title a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 25px;
+}
+
+header .nav-menu {
+  color: #d49b2b;
+  margin-left: 50px;
+  font-size: 18px;
+}
+
+header .nav-menu-item {
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+header .nav-menu-item a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+header .nav-menu-item:hover {
+  border-bottom: 2px solid white;
+}
+</style>
+
+<style>
+#article {
+  margin: 0px calc(10% + 350px) 5px 10%;
+}
+
+#sidebar {
+  width: 350px;
+  padding: 5px;
+  position: fixed;
+  right: 0px;
+  top: 50px;
+}
+
+#sidebar a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+#sidebar .ul {
+  margin-left: 15px;
+}
+
+#sidebar .li .hover {
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+#sidebar .li .hover:hover {
+  border-bottom: 2px solid #ce8f22;
+}
+
+#sidebar .main-items {
+  margin-bottom: 5px;
+  color: #ce8f22;
+  font-size: 18px;
+}
+
+#sidebar .sub-menu > * {
+  margin-bottom: 5px;
+}
+
+.jaguar-code {
+  padding: 0px 3px;
+  background-color: #f9f9f9;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+}
+</style>
+
+<script>
+	function scrollTo(name) {
+	  var selector = 'a[name="'+name+'"]';
+	  document.querySelector(selector).scrollIntoView({behavior: 'smooth'});
+	}
+</script>
+</head>
+
+<body>
+
+<header>
+	<span class="title"><a href="/">Jaguar</a>::Reference</span>
+
+	<span class="nav-menu">
+    <span class="nav-menu-item"><a href="/getting_started.html">Get started</a></span>
+    <span class="nav-menu-item"><a href="/intro/routes.html">Intro</a></span>
+    <span class="nav-menu-item"><a href="https://www.dartdocs.org/documentation/jaguar/0.1.0/index.html">Api</a></span>
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Examples</a></span>
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
+    <span class="nav-menu-item"><a href="https://pub.dartlang.org/packages/jaguar">Pub</a></span>
+  </span>
+</header>
+
+<article id="article">
+<h1><a name="route-handlers" href="#route-handlers">Authentication and Authorisation</a></h1>
+<p>
+  
+</p>
+
+
+</article>
+
+<aside id="sidebar">
+	<div class="ul">
+		<div class="li main-items"><a href="/intro/routes.html"><span class="hover">Route handlers</span></a></div>
+		<div class="li main-items"><a href="/intro/interceptors.html"><span class="hover">Interceptors</span></a></div>
+		<div class="li main-items"><a href="/intro/session.html"><span class="hover">Session</span></a></div>
+		<div class="li main-items"><a href="/intro/auth.html"><span class="hover">Authentication and Authorisation</span></a></div>
+		<div class="ul sub-menu">
+		  <div class="li" onclick="scrollTo('basic-authentication')"><span class="hover">Basic authentication</span></div>
+		  <div class="li" onclick="scrollTo('username-password-on-urlencodedform')"><span class="hover">Username password on UrlEncodedForm</span></div>
+		  <div class="li" onclick="scrollTo('username-password-on-json')"><span class="hover">Username password on Json</span></div>
+		  <div class="li" onclick="scrollTo('implement-custom-authenticator')"><span class="hover">Implement custom Authenticator</span></div>
+		  <div class="li" onclick="scrollTo('authoriser')"><span class="hover">Authoriser</span></div>
+		</div>
+	</div>
+</aside>
+</body>
+
+</html>

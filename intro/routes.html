@@ -9,6 +9,19 @@ html, body {
   font-family: 'Roboto', sans-serif;
   margin: 0px;
   padding: 0px;
+  line-height: 25px;
+  font-size: 15px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: normal;
+  color: #ce8f22;
+  text-decoration: none;
+  outline: none;
 }
 
 h1 > a,
@@ -70,8 +83,6 @@ header .nav-menu-item:hover {
 <style>
 #article {
   margin: 0px calc(10% + 350px) 5px 10%;
-  font-size: 16px;
-  line-height: 22px;
 }
 
 #sidebar {
@@ -134,7 +145,7 @@ header .nav-menu-item:hover {
 
 	<span class="nav-menu">
     <span class="nav-menu-item"><a href="/getting_started.html">Get started</a></span>
-    <span class="nav-menu-item"><a href="/introduction.html">Intro</a></span>
+    <span class="nav-menu-item"><a href="/intro/routes.html">Intro</a></span>
     <span class="nav-menu-item"><a href="https://www.dartdocs.org/documentation/jaguar/0.1.0/index.html">Api</a></span>
     <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Examples</a></span>
     <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
@@ -441,21 +452,8 @@ Similar to route handlers, interceptor methods can request result of another int
 				<div class="li" onclick="scrollTo('interceptors-getting-result-of-another-interceptor')"><span class="hover">Getting result of another interceptor</span></div>
 			</div>
 		</div>
-		<div class="li main-items" onclick="scrollTo('session')"><span class="hover">Session</span></div>
-		<div class="ul sub-menu">
-		  <div class="li" onclick="scrollTo('session-cookie')"><span class="hover">Cookie</span></div>
-		  <div class="li" onclick="scrollTo('session-jwt-on-cookie')"><span class="hover">Jwt on cookie</span></div>
-		  <div class="li" onclick="scrollTo('session-jwt-on-authorization-header')"><span class="hover">Jwt on Authorization header</span></div>
-		  <div class="li" onclick="scrollTo('session-implement-custom-session-manager')"><span class="hover">Implement custom session manager</span></div>
-		</div>
-		<div class="li main-items" onclick="scrollTo('authentication')"><span class="hover">Authentication</span></div>
-		<div class="ul sub-menu">
-		  <div class="li" onclick="scrollTo('authentication-basic-authentication')"><span class="hover">Basic authentication</span></div>
-		  <div class="li" onclick="scrollTo('authentication-username-password-on-urlencodedform')"><span class="hover">Username password on UrlEncodedForm</span></div>
-		  <div class="li" onclick="scrollTo('authentication-username-password-on-json')"><span class="hover">Username password on Json</span></div>
-		  <div class="li" onclick="scrollTo('authentication-implement-custom-authenticator')"><span class="hover">Implement custom Authenticator</span></div>
-		</div>
-		<div class="li main-items" onclick="scrollTo('authorisation')"><span class="hover">Authorisation</span></div>
+		<div class="li main-items"><a href="/intro/session.html"><span class="hover">Session</span></a></div>
+		<div class="li main-items"><a href="/intro/auth.html"><span class="hover">Authentication and Authorisation</span></a></div>
 	</div>
 </aside>
 </body>

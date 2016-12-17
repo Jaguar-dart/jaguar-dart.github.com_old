@@ -1,0 +1,1175 @@
+<html>
+
+<head>
+<title>Jaguar reference</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+<style>
+html, body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  line-height: 25px;
+  font-size: 15px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: normal;
+  color: #ce8f22;
+  text-decoration: none;
+  outline: none;
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a {
+  color: #ce8f22;
+  text-decoration: none;
+  outline: none;
+}
+</style>
+
+<style>
+header {
+  width: 100%;
+  border-top: 5px solid #ce8f22;
+  height: 40px;
+  background-color: black;
+	overflow: hidden;
+}
+
+header .title {
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+header .title a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 25px;
+}
+
+header .nav-menu {
+  color: #d49b2b;
+  margin-left: 50px;
+  font-size: 18px;
+}
+
+header .nav-menu-item {
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+header .nav-menu-item a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+header .nav-menu-item:hover {
+  border-bottom: 2px solid white;
+}
+</style>
+
+<style>
+#article {
+  margin: 0px calc(10% + 350px) 5px 10%;
+}
+
+#sidebar {
+  width: 350px;
+  padding: 5px;
+  position: fixed;
+  right: 0px;
+  top: 50px;
+}
+
+#sidebar a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+#sidebar .ul {
+  margin-left: 15px;
+}
+
+#sidebar .li .hover {
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+#sidebar .li .hover:hover {
+  border-bottom: 2px solid #ce8f22;
+}
+
+#sidebar .main-items {
+  margin-bottom: 5px;
+  color: #ce8f22;
+  font-size: 18px;
+}
+
+#sidebar .sub-menu > * {
+  margin-bottom: 5px;
+}
+
+.jaguar-code {
+  padding: 0px 3px;
+  background-color: #f9f9f9;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+}
+</style>
+
+<script>
+	function scrollTo(name) {
+	  var selector = 'a[name="'+name+'"]';
+	  document.querySelector(selector).scrollIntoView({behavior: 'smooth'});
+	}
+</script>
+</head>
+
+<body>
+
+<header>
+	<span class="title"><a href="/">Jaguar</a>::Reference</span>
+
+	<span class="nav-menu">
+    <span class="nav-menu-item"><a href="/getting_started.html">Get started</a></span>
+    <span class="nav-menu-item"><a href="/intro/routes.html">Intro</a></span>
+    <span class="nav-menu-item"><a href="https://www.dartdocs.org/documentation/jaguar/0.1.0/index.html">Api</a></span>
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Examples</a></span>
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
+    <span class="nav-menu-item"><a href="https://pub.dartlang.org/packages/jaguar">Pub</a></span>
+  </span>
+</header>
+
+<article id="article">
+<h1><a name="session" href="#route-handlers">Session</a></h1>
+
+<p>
+Session interceptor and managers reside in <span class="jaguar-code">jaguar_session</span> package.
+
+  <ul>
+    <li><strong>Pub:</strong> <a href="https://pub.dartlang.org/packages/jaguar_session">https://pub.dartlang.org/packages/jaguar_session</a></li>
+    <li><strong>Github:</strong> <a href="https://github.com/Jaguar-dart/jaguar_session">https://github.com/Jaguar-dart/jaguar_session</a></li>
+    <li><strong>API docs:</strong> <a href="https://www.dartdocs.org/documentation/jaguar_session/latest/index.html">https://www.dartdocs.org/documentation/jaguar_session/latest/index.html</a></li>
+  </ul>
+</p>
+
+<h2><a name="sessioninterceptor" href="#sessioninterceptor">SessionInterceptor</a></h2>
+
+<p>
+Session interceptor can be wrapped around a route to automatically parse, load and
+update session information from http request and session store (if present).
+It delegates the tasks of parsing, loading and updating session information to an
+instance of SessionManager that it takes as parameter.
+</p>
+
+<p>
+SessionInterceptor provides the instance of SessionManager as Input to other intercetors
+and routes.
+This makes it possible to chain SessionInterceptor with authentication and authorization
+interceptors provided by <a href="/intro/auth.html"><span class="jaguar-code">jaguar_auth</span></a> package.
+</p>
+
+<p>
+<span class="jaguar-code">jaguar_session</span> has a few flavors of SessionManager builtin:
+
+<ul>
+  <li>Cookie</li>
+  <li>JWT on Cookie</li>
+  <li>JWT on authorization header</li>
+</ul>
+</p>
+
+<h2><a name="sessionmanager" href="#sessionmanager">SessionManager</a></h2>
+
+<p>
+  SessionManager is responsible for parsing, loading and updating session information
+  from http request and session store.
+
+  After the session is parsed (usually done through SessionInterceptor), the session information
+  can be accessed using <span class="jaguar-code">String getInValue(String key)</span>
+  method.
+</p>
+
+<p>
+<div><strong>Example</strong></div>
+
+<div>
+  Lets use a small example using CookieSessionManager to get familar with <span class="jaguar-code">jaguar_session</span>
+  package. We use BasicAuth and UserAuthroriser interceptors from jaguar_auth package for
+  authentication and authorisation.
+</div>
+</p>
+
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/// This route group contains login and logout authentication routes</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup()
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">AuthRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarAuthRoutes {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/login&#39;</span>)
+  <span style="color: #888888">//BasicAuth interceptors uses SessionManager provided by SessionInterceptor</span>
+  <span style="color: #888888">//to create a new session if authentication is successful</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapBasicAuth(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager)
+  <span style="color: #888888; font-weight: bold">void</span> login(HttpRequest req) {}
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/logout&#39;</span>)
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(SessionInterceptor)
+  Future&lt;Null&gt; logout(SessionManager sessionManager) async {
+    await sessionManager.clearSession();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  CookieSessionManager sessionManager() =&gt; <span style="color: #008800; font-weight: bold">new</span> CookieSessionManager();
+}
+
+<span style="color: #888888">/// Collection of routes that need authorization</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/book&#39;</span>)
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #888888">//UserAuthoriser interceptor uses SessionManager provided by SessionInterceptor</span>
+<span style="color: #888888">//to parse and validate session information. UserAuthoriser interceptor provides</span>
+<span style="color: #888888">//logged-in user as Input to other interceptors and routes.</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapUserAuthoriser(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">StudentRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarStudentRoutes <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/all&#39;</span>)
+  <span style="color: #888888">//loggedinUser can be obtained from UserAuthoriser as Input</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(UserAuthoriser)
+  Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; getAllBooks(User loggedinUser) {
+    List&lt;Map&gt; ret = _books.values.map((Book book) =&gt; book.toMap()).toList();
+
+    Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; resp = <span style="color: #008800; font-weight: bold">new</span> Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt;(JSON.encode(ret));
+    <span style="color: #888888">//For demonstration we pass username of logged-in user as cookie</span>
+    resp.cookies.add(<span style="color: #008800; font-weight: bold">new</span> Cookie(<span style="color: #dd2200; background-color: #fff0f0">&#39;user&#39;</span>, loggedinUser.username));
+    <span style="color: #008800; font-weight: bold">return</span> resp;
+  }
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/:id&#39;</span>, <span style="color: #336699; font-style: italic">headers:</span> <span style="color: #008800; font-weight: bold">const</span> {<span style="color: #dd2200; background-color: #fff0f0">&#39;sample-header&#39;</span>: <span style="color: #dd2200; background-color: #fff0f0">&#39;sample-value&#39;</span>})
+  <span style="color: #888888; font-weight: bold">String</span> getBook(<span style="color: #888888; font-weight: bold">String</span> id) {
+    Book book = _books[id];
+    <span style="color: #008800; font-weight: bold">return</span> book.toJson();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  CookieSessionManager sessionManager() =&gt; <span style="color: #008800; font-weight: bold">new</span> CookieSessionManager();
+}
+
+<span style="color: #a61717; background-color: #e3d2d2">@</span>Api(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/api&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">LibraryApi</span> <span style="color: #008800; font-weight: bold">extends</span> <span style="color: #888888; font-weight: bold">Object</span>
+    with _$JaguarLibraryApi
+    <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> AuthRoutes auth = <span style="color: #008800; font-weight: bold">new</span> AuthRoutes();
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> StudentRoutes student = <span style="color: #008800; font-weight: bold">new</span> StudentRoutes();
+}
+</pre></td></tr></table></div>
+
+
+<h2><a name="cookie" href="#cookie">Cookie</a></h2>
+
+<p>
+CookieSessionManager stores all session information on cookie. It parses the session
+information from cookie on authorization and sets cookies on authentication.
+</p>
+
+<p>
+  <div><strong>Params:</strong></div>
+  <ul>
+    <li><span class="jaguar-code">cookieName</span> The key used for storing session information in cookie</li>
+  </ul>
+</p>
+
+<p>
+<div><strong>Example</strong></div>
+
+<div>
+  We use BasicAuth and UserAuthroriser interceptors from jaguar_auth package for
+  authentication and authorisation.
+</div>
+</p>
+
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/// This route group contains login and logout authentication routes</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup()
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">AuthRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarAuthRoutes {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/login&#39;</span>)
+  <span style="color: #888888">//BasicAuth interceptors uses SessionManager provided by SessionInterceptor</span>
+  <span style="color: #888888">//to create a new session if authentication is successful</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapBasicAuth(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager)
+  <span style="color: #888888; font-weight: bold">void</span> login(HttpRequest req) {}
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/logout&#39;</span>)
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(SessionInterceptor)
+  Future&lt;Null&gt; logout(SessionManager sessionManager) async {
+    await sessionManager.clearSession();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  CookieSessionManager sessionManager() =&gt; <span style="color: #008800; font-weight: bold">new</span> CookieSessionManager();
+}
+
+<span style="color: #888888">/// Collection of routes that need authorization</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/book&#39;</span>)
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #888888">//UserAuthoriser interceptor uses SessionManager provided by SessionInterceptor</span>
+<span style="color: #888888">//to parse and validate session information. UserAuthoriser interceptor provides</span>
+<span style="color: #888888">//logged-in user as Input to other interceptors and routes.</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapUserAuthoriser(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">StudentRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarStudentRoutes <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/all&#39;</span>)
+  <span style="color: #888888">//loggedinUser can be obtained from UserAuthoriser as Input</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(UserAuthoriser)
+  Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; getAllBooks(User loggedinUser) {
+    List&lt;Map&gt; ret = _books.values.map((Book book) =&gt; book.toMap()).toList();
+
+    Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; resp = <span style="color: #008800; font-weight: bold">new</span> Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt;(JSON.encode(ret));
+    <span style="color: #888888">//For demonstration we pass username of logged-in user as cookie</span>
+    resp.cookies.add(<span style="color: #008800; font-weight: bold">new</span> Cookie(<span style="color: #dd2200; background-color: #fff0f0">&#39;user&#39;</span>, loggedinUser.username));
+    <span style="color: #008800; font-weight: bold">return</span> resp;
+  }
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/:id&#39;</span>, <span style="color: #336699; font-style: italic">headers:</span> <span style="color: #008800; font-weight: bold">const</span> {<span style="color: #dd2200; background-color: #fff0f0">&#39;sample-header&#39;</span>: <span style="color: #dd2200; background-color: #fff0f0">&#39;sample-value&#39;</span>})
+  <span style="color: #888888; font-weight: bold">String</span> getBook(<span style="color: #888888; font-weight: bold">String</span> id) {
+    Book book = _books[id];
+    <span style="color: #008800; font-weight: bold">return</span> book.toJson();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  CookieSessionManager sessionManager() =&gt; <span style="color: #008800; font-weight: bold">new</span> CookieSessionManager();
+}
+
+<span style="color: #a61717; background-color: #e3d2d2">@</span>Api(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/api&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">LibraryApi</span> <span style="color: #008800; font-weight: bold">extends</span> <span style="color: #888888; font-weight: bold">Object</span>
+    with _$JaguarLibraryApi
+    <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> AuthRoutes auth = <span style="color: #008800; font-weight: bold">new</span> AuthRoutes();
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> StudentRoutes student = <span style="color: #008800; font-weight: bold">new</span> StudentRoutes();
+}
+</pre></td></tr></table></div>
+
+<h2><a name="jwt-on-cookie" href="#jwt-on-cookie">Jwt on cookie</a></h2>
+
+<p>
+JwtCookieSessionManager stores all session information on cookie as JWT token. It parses
+and validates session information from cookie on authorization and sets token on
+cookie on authentication.
+</p>
+
+<p>
+  <div><strong>Params:</strong></div>
+  <ul>
+    <li><span class="jaguar-code">jwtAuthenticationContext</span> JWT authentication context information.</li>
+    <ul>
+      <li><span class="jaguar-code">issuer</span> The issuer who is issuing this token</li>
+      <li><span class="jaguar-code">audience</span> The audience/services that can accept this token</li>
+      <li><span class="jaguar-code">signatureContext</span> The secret used to encrypt JWT token</li>
+      <li><span class="jaguar-code">tokenDuration</span> The duration for which the token must be valid</li>
+    </ul>
+    <li><span class="jaguar-code">jwtAuthorizationContext</span> JWT authorization context information.</li>
+    <ul>
+      <li><span class="jaguar-code">issuer</span> Only tokens from this issuer shall be accepted</li>
+      <li><span class="jaguar-code">audience</span> Only tokens that have these audience/services shall be accepted</li>
+      <li><span class="jaguar-code">signatureContext</span> The secret used to dencrypt JWT token</li>
+    </ul>
+    <li><span class="jaguar-code">cookieName</span> The key used for storing JWT token in cookie</li>
+  </ul>
+</p>
+
+<p>
+<div><strong>Example</strong></div>
+
+<div>
+  We use BasicAuth and UserAuthroriser interceptors from jaguar_auth package for
+  authentication and authorisation.
+</div>
+</p>
+
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/// This route group contains login and logout authentication routes</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup()
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">AuthRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarAuthRoutes {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/login&#39;</span>)
+  <span style="color: #888888">//BasicAuth interceptors uses SessionManager provided by SessionInterceptor</span>
+  <span style="color: #888888">//to create a new session if authentication is successful</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapBasicAuth(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager, <span style="color: #336699; font-style: italic">authorizationIdKey:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;sub&#39;</span>)
+  <span style="color: #888888; font-weight: bold">void</span> login(HttpRequest req) {}
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/logout&#39;</span>)
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(SessionInterceptor)
+  Future&lt;Null&gt; logout(SessionManager sessionManager) async {
+    await sessionManager.clearSession();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  JwtCookieSessionManager sessionManager() =&gt; <span style="color: #008800; font-weight: bold">new</span> JwtCookieSessionManager(
+      _kJwtAuthenticationCtx, _kJwtAuthorizationCtx);
+
+  <span style="color: #888888">///JWT Authentication context used by [JwtAuthHeaderSessionManager]</span>
+  <span style="color: #008800; font-weight: bold">final</span> _kJwtAuthenticationCtx = <span style="color: #008800; font-weight: bold">new</span> JwtAuthenticationContext(
+      <span style="color: #008800; font-weight: bold">new</span> JwaSymmetricKeySignatureContext(
+          <span style="color: #dd2200; background-color: #fff0f0">&#39;sdgdflgujsdgndsflkgjsdlnwertwert78676&#39;</span>),
+      <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>,
+      <span style="color: #336699; font-style: italic">audience:</span> [<span style="color: #dd2200; background-color: #fff0f0">&#39;book&#39;</span>]);
+
+  <span style="color: #888888">///JWT Authorization context used by [JwtAuthHeaderSessionManager]</span>
+  <span style="color: #008800; font-weight: bold">final</span> _kJwtAuthorizationCtx = <span style="color: #008800; font-weight: bold">new</span> JwtAuthorizationContext(
+      <span style="color: #008800; font-weight: bold">new</span> JwaSymmetricKeySignatureContext(
+          <span style="color: #dd2200; background-color: #fff0f0">&#39;sdgdflgujsdgndsflkgjsdlnwertwert78676&#39;</span>),
+      <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>,
+      <span style="color: #336699; font-style: italic">audience:</span> [<span style="color: #dd2200; background-color: #fff0f0">&#39;admin&#39;</span>]);
+}
+
+<span style="color: #888888">/// Collection of routes that need authorization</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/book&#39;</span>)
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #888888">//UserAuthoriser interceptor uses SessionManager provided by SessionInterceptor</span>
+<span style="color: #888888">//to parse and validate session information. UserAuthoriser interceptor provides</span>
+<span style="color: #888888">//logged-in user as Input to other interceptors and routes.</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapUserAuthoriser(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager, <span style="color: #336699; font-style: italic">sessionIdKey:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;sub&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">StudentRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarStudentRoutes <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/all&#39;</span>)
+  <span style="color: #888888">//loggedinUser can be obtained from UserAuthoriser as Input</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(UserAuthoriser)
+  Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; getAllBooks(User loggedinUser) {
+    List&lt;Map&gt; ret = books.values.map((Book book) =&gt; book.toMap()).toList();
+
+    Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; resp = <span style="color: #008800; font-weight: bold">new</span> Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt;(JSON.encode(ret));
+    <span style="color: #888888">//For demonstration we pass username of logged-in user as cookie</span>
+    resp.cookies.add(<span style="color: #008800; font-weight: bold">new</span> Cookie(<span style="color: #dd2200; background-color: #fff0f0">&#39;user&#39;</span>, loggedinUser.username));
+    <span style="color: #008800; font-weight: bold">return</span> resp;
+  }
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/:id&#39;</span>, <span style="color: #336699; font-style: italic">headers:</span> <span style="color: #008800; font-weight: bold">const</span> {<span style="color: #dd2200; background-color: #fff0f0">&#39;sample-header&#39;</span>: <span style="color: #dd2200; background-color: #fff0f0">&#39;sample-value&#39;</span>})
+  <span style="color: #888888; font-weight: bold">String</span> getBook(<span style="color: #888888; font-weight: bold">String</span> id) {
+    Book book = books[id];
+    <span style="color: #008800; font-weight: bold">return</span> book.toJson();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  <span style="color: #888888">//We dont need Authentication context for authorization, so it is set to null</span>
+  JwtCookieSessionManager sessionManager() =&gt;
+      <span style="color: #008800; font-weight: bold">new</span> JwtCookieSessionManager(<span style="color: #008800; font-weight: bold">null</span>, _kJwtAuthorizationCtx);
+
+  <span style="color: #888888">///JWT Authorization context used by [JwtAuthHeaderSessionManager]</span>
+  <span style="color: #008800; font-weight: bold">final</span> _kJwtAuthorizationCtx = <span style="color: #008800; font-weight: bold">new</span> JwtAuthorizationContext(
+      <span style="color: #008800; font-weight: bold">new</span> JwaSymmetricKeySignatureContext(
+          <span style="color: #dd2200; background-color: #fff0f0">&#39;sdgdflgujsdgndsflkgjsdlnwertwert78676&#39;</span>),
+      <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>,
+      <span style="color: #336699; font-style: italic">audience:</span> [<span style="color: #dd2200; background-color: #fff0f0">&#39;book&#39;</span>]);
+}
+
+<span style="color: #a61717; background-color: #e3d2d2">@</span>Api(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/api&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">LibraryApi</span> <span style="color: #008800; font-weight: bold">extends</span> <span style="color: #888888; font-weight: bold">Object</span>
+    with _$JaguarLibraryApi
+    <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> AuthRoutes auth = <span style="color: #008800; font-weight: bold">new</span> AuthRoutes();
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> StudentRoutes student = <span style="color: #008800; font-weight: bold">new</span> StudentRoutes();
+}
+</pre></td></tr></table></div>
+
+
+<h2><a name="jwt-on-authorization-header" href="#jwt-on-authorization-header">Jwt on Authorization header</a></h2>
+
+<p>
+JwtAuthHeaderSessionManager stores all session information on authorization header as JWT
+token. It parses and validates session information from authorization header on authorization
+and sets token on authorization header during authentication.
+</p>
+
+<p>
+  <div><strong>Params:</strong></div>
+  <ul>
+    <li><span class="jaguar-code">jwtAuthenticationContext</span> JWT authentication context information.</li>
+    <ul>
+      <li><span class="jaguar-code">issuer</span> The issuer who is issuing this token</li>
+      <li><span class="jaguar-code">audience</span> The audience/services that can accept this token</li>
+      <li><span class="jaguar-code">signatureContext</span> The secret used to encrypt JWT token</li>
+      <li><span class="jaguar-code">tokenDuration</span> The duration for which the token must be valid</li>
+    </ul>
+    <li><span class="jaguar-code">jwtAuthorizationContext</span> JWT authorization context information.</li>
+    <ul>
+      <li><span class="jaguar-code">issuer</span> Only tokens from this issuer shall be accepted</li>
+      <li><span class="jaguar-code">audience</span> Only tokens that have these audience/services shall be accepted</li>
+      <li><span class="jaguar-code">signatureContext</span> The secret used to dencrypt JWT token</li>
+    </ul>
+  </ul>
+</p>
+
+<p>
+<div><strong>Example</strong></div>
+
+<div>
+  We use BasicAuth and UserAuthroriser interceptors from jaguar_auth package for
+  authentication and authorisation.
+</div>
+</p>
+
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/// This route group contains login and logout authentication routes</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup()
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">AuthRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarAuthRoutes {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/login&#39;</span>)
+  <span style="color: #888888">//BasicAuth interceptors uses SessionManager provided by SessionInterceptor</span>
+  <span style="color: #888888">//to create a new session if authentication is successful</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>WrapBasicAuth(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager, <span style="color: #336699; font-style: italic">authorizationIdKey:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;sub&#39;</span>)
+  <span style="color: #888888; font-weight: bold">void</span> login(HttpRequest req) {}
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/logout&#39;</span>)
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(SessionInterceptor)
+  Future&lt;Null&gt; logout(SessionManager sessionManager) async {
+    await sessionManager.clearSession();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  JwtAuthHeaderSessionManager sessionManager() =&gt;
+      <span style="color: #008800; font-weight: bold">new</span> JwtAuthHeaderSessionManager(
+          _kJwtAuthenticationCtx, _kJwtAuthorizationCtx);
+
+  <span style="color: #888888">///JWT Authentication context used by [JwtAuthHeaderSessionManager]</span>
+  <span style="color: #008800; font-weight: bold">final</span> _kJwtAuthenticationCtx = <span style="color: #008800; font-weight: bold">new</span> JwtAuthenticationContext(
+      <span style="color: #008800; font-weight: bold">new</span> JwaSymmetricKeySignatureContext(
+          <span style="color: #dd2200; background-color: #fff0f0">&#39;sdgdflgujsdgndsflkgjsdlnwertwert78676&#39;</span>),
+      <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>,
+      <span style="color: #336699; font-style: italic">audience:</span> [<span style="color: #dd2200; background-color: #fff0f0">&#39;book&#39;</span>]);
+
+  <span style="color: #888888">///JWT Authorization context used by [JwtAuthHeaderSessionManager]</span>
+  <span style="color: #008800; font-weight: bold">final</span> _kJwtAuthorizationCtx = <span style="color: #008800; font-weight: bold">new</span> JwtAuthorizationContext(
+      <span style="color: #008800; font-weight: bold">new</span> JwaSymmetricKeySignatureContext(
+          <span style="color: #dd2200; background-color: #fff0f0">&#39;sdgdflgujsdgndsflkgjsdlnwertwert78676&#39;</span>),
+      <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>,
+      <span style="color: #336699; font-style: italic">audience:</span> [<span style="color: #dd2200; background-color: #fff0f0">&#39;admin&#39;</span>]);
+}
+
+<span style="color: #888888">/// Collection of routes that need authorization</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/book&#39;</span>)
+<span style="color: #888888">//You must provide an instance of SessionManager through sessionManager parameter</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapSessionInterceptor(<span style="color: #336699; font-style: italic">makeParams:</span> <span style="color: #008800; font-weight: bold">const</span> &lt;Symbol, MakeParam&gt;{
+  <span style="color: #a61717; background-color: #e3d2d2">#</span><span style="color: #336699; font-style: italic">sessionManager:</span> <span style="color: #008800; font-weight: bold">const</span> MakeParamFromMethod(<span style="color: #a61717; background-color: #e3d2d2">#</span>sessionManager)
+})
+<span style="color: #888888">//UserAuthoriser interceptor uses SessionManager provided by SessionInterceptor</span>
+<span style="color: #888888">//to parse and validate session information. UserAuthoriser interceptor provides</span>
+<span style="color: #888888">//logged-in user as Input to other interceptors and routes.</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>WrapUserAuthoriser(<span style="color: #336699; font-style: italic">modelManager:</span> kModelManager, <span style="color: #336699; font-style: italic">sessionIdKey:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;sub&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">StudentRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarStudentRoutes <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/all&#39;</span>)
+  <span style="color: #888888">//loggedinUser can be obtained from UserAuthoriser as Input</span>
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Input(UserAuthoriser)
+  Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; getAllBooks(User loggedinUser) {
+    List&lt;Map&gt; ret = books.values.map((Book book) =&gt; book.toMap()).toList();
+
+    Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; resp = <span style="color: #008800; font-weight: bold">new</span> Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt;(JSON.encode(ret));
+    <span style="color: #888888">//For demonstration we pass username of logged-in user as cookie</span>
+    resp.cookies.add(<span style="color: #008800; font-weight: bold">new</span> Cookie(<span style="color: #dd2200; background-color: #fff0f0">&#39;user&#39;</span>, loggedinUser.username));
+    <span style="color: #008800; font-weight: bold">return</span> resp;
+  }
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/:id&#39;</span>, <span style="color: #336699; font-style: italic">headers:</span> <span style="color: #008800; font-weight: bold">const</span> {<span style="color: #dd2200; background-color: #fff0f0">&#39;sample-header&#39;</span>: <span style="color: #dd2200; background-color: #fff0f0">&#39;sample-value&#39;</span>})
+  <span style="color: #888888; font-weight: bold">String</span> getBook(<span style="color: #888888; font-weight: bold">String</span> id) {
+    Book book = books[id];
+    <span style="color: #008800; font-weight: bold">return</span> book.toJson();
+  }
+
+  <span style="color: #888888">//This is the session manager that is passed to SessionInterceptor</span>
+  <span style="color: #888888">//We dont need Authentication context for authorization, so it is set to null</span>
+  JwtAuthHeaderSessionManager sessionManager() =&gt;
+      <span style="color: #008800; font-weight: bold">new</span> JwtAuthHeaderSessionManager(<span style="color: #008800; font-weight: bold">null</span>, _kJwtAuthorizationCtx);
+
+  <span style="color: #888888">///JWT Authorization context used by [JwtAuthHeaderSessionManager]</span>
+  <span style="color: #008800; font-weight: bold">final</span> _kJwtAuthorizationCtx = <span style="color: #008800; font-weight: bold">new</span> JwtAuthorizationContext(
+      <span style="color: #008800; font-weight: bold">new</span> JwaSymmetricKeySignatureContext(
+          <span style="color: #dd2200; background-color: #fff0f0">&#39;sdgdflgujsdgndsflkgjsdlnwertwert78676&#39;</span>),
+      <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>,
+      <span style="color: #336699; font-style: italic">audience:</span> [<span style="color: #dd2200; background-color: #fff0f0">&#39;book&#39;</span>]);
+}
+
+<span style="color: #a61717; background-color: #e3d2d2">@</span>Api(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/api&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">LibraryApi</span> <span style="color: #008800; font-weight: bold">extends</span> <span style="color: #888888; font-weight: bold">Object</span>
+    with _$JaguarLibraryApi
+    <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> AuthRoutes auth = <span style="color: #008800; font-weight: bold">new</span> AuthRoutes();
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> StudentRoutes student = <span style="color: #008800; font-weight: bold">new</span> StudentRoutes();
+}
+
+server() async {
+  LibraryApi api = <span style="color: #008800; font-weight: bold">new</span> LibraryApi();
+
+  Configuration configuration = <span style="color: #008800; font-weight: bold">new</span> Configuration();
+  configuration.addApi(api);
+
+  await serve(configuration);
+}
+</pre></td></tr></table></div>
+
+<h2><a name="using-sessionmanager-directly" href="#using-sessionmanager-directly">Using session manager directly</a></h2>
+
+<p>
+One can also use SessionManager directly or write your own equivalent of SessionInterceptor.
+</p>
+<p>
+  <div><strong>updateSession</strong></div>
+  <div><strong>Prototype</Strong>: Future<Null> updateSession(Map<String, String> values)</div>
+  <div>
+    This method can be used during authentication to set session information.
+  </div>
+</p>
+<p>
+  <div><strong>updateResponse</strong></div>
+  <div><strong>Prototype</Strong>: Future<Response> updateResponse(HttpRequest request, Response resp)</div>
+  <div>
+    This method can be used to write session information to response/session store
+    if the session information has changed.
+  </div>
+</p>
+<p>
+  <div><strong>parseRequest</strong></div>
+  <div><strong>Prototype</Strong>: Future<Null> parseRequest(HttpRequest request)</div>
+  <div>
+    This method parses session information from http request and also loads corresponding
+    information from session store.
+  </div>
+</p>
+<p>
+  <div><strong>validate</strong></div>
+  <div><strong>Prototype</Strong>: Future<Null> validate()</div>
+  <div>
+    Validates the current session. Should be called after parseRequest.
+  </div>
+</p>
+<p>
+  <div><strong>clearSession</strong></div>
+  <div><strong>Prototype</Strong>: Future<Null> clearSession()</div>
+  <div>
+    Invalidates the current session.
+  </div>
+</p>
+
+<p>
+<div><strong>Example</strong></div>
+
+<div>
+</div>
+</p>
+
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/// This route group contains login and logout authentication routes</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup()
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">AuthRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarAuthRoutes {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/login/:username/:pwd&#39;</span>)
+  Future&lt;Response&gt; login(HttpRequest req, <span style="color: #888888; font-weight: bold">String</span> username, <span style="color: #888888; font-weight: bold">String</span> pwd) async {
+    <span style="color: #008800; font-weight: bold">if</span> (username == <span style="color: #008800; font-weight: bold">null</span> || pwd == <span style="color: #008800; font-weight: bold">null</span>) {
+      <span style="color: #008800; font-weight: bold">throw</span> <span style="color: #008800; font-weight: bold">new</span> UnAuthorizedError();
+    }
+
+    <span style="color: #008800; font-weight: bold">if</span> (username != <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span> || pwd != <span style="color: #dd2200; background-color: #fff0f0">&#39;awesome&#39;</span>) {
+      <span style="color: #008800; font-weight: bold">throw</span> <span style="color: #008800; font-weight: bold">new</span> UnAuthorizedError();
+    }
+
+    Response resp = <span style="color: #008800; font-weight: bold">new</span> Response(<span style="color: #008800; font-weight: bold">null</span>, <span style="color: #336699; font-style: italic">statusCode:</span> <span style="color: #0000DD; font-weight: bold">200</span>);
+    CookieSessionManager sesMan = sessionManager();
+    <span style="color: #888888">//Set session information</span>
+    await sesMan.updateSession({<span style="color: #dd2200; background-color: #fff0f0">&#39;username&#39;</span>: <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>});
+    <span style="color: #888888">//Update response with session information</span>
+    <span style="color: #008800; font-weight: bold">return</span> await sesMan.updateResponse(req, resp);
+  }
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Post(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/logout&#39;</span>)
+  Future&lt;Response&gt; logout(HttpRequest req) async {
+    Response resp = <span style="color: #008800; font-weight: bold">new</span> Response(<span style="color: #008800; font-weight: bold">null</span>, <span style="color: #336699; font-style: italic">statusCode:</span> <span style="color: #0000DD; font-weight: bold">200</span>);
+    CookieSessionManager sesMan = sessionManager();
+    <span style="color: #888888">//Clear session information on logout</span>
+    await sesMan.clearSession();
+    <span style="color: #888888">//Update response</span>
+    <span style="color: #008800; font-weight: bold">return</span> await sesMan.updateResponse(req, resp);
+  }
+
+  CookieSessionManager sessionManager() =&gt; <span style="color: #008800; font-weight: bold">new</span> CookieSessionManager();
+}
+
+<span style="color: #888888">/// Collection of routes that need authorization</span>
+<span style="color: #a61717; background-color: #e3d2d2">@</span>RouteGroup(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/book&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">StudentRoutes</span> <span style="color: #008800; font-weight: bold">extends</span> _$JaguarStudentRoutes <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Get(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/all&#39;</span>)
+  Future&lt;Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt;&gt; getAllBooks(HttpRequest req) async {
+    CookieSessionManager sesMan = sessionManager();
+    <span style="color: #888888">//Parse session information</span>
+    await sesMan.parseRequest(req);
+
+    <span style="color: #888888">//Authorize</span>
+    <span style="color: #888888; font-weight: bold">String</span> username = sesMan.getInValue(<span style="color: #dd2200; background-color: #fff0f0">&#39;username&#39;</span>);
+    <span style="color: #008800; font-weight: bold">if</span> (username <span style="color: #008800; font-weight: bold">is</span>! <span style="color: #888888; font-weight: bold">String</span> || username != <span style="color: #dd2200; background-color: #fff0f0">&#39;jaguar&#39;</span>) {
+      <span style="color: #008800; font-weight: bold">throw</span> <span style="color: #008800; font-weight: bold">new</span> UnAuthorizedError();
+    }
+
+    List&lt;Map&gt; ret = books.values.map((Book book) =&gt; book.toMap()).toList();
+    Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt; resp = <span style="color: #008800; font-weight: bold">new</span> Response&lt;<span style="color: #888888; font-weight: bold">String</span>&gt;(JSON.encode(ret));
+    <span style="color: #008800; font-weight: bold">return</span> resp;
+  }
+
+  CookieSessionManager sessionManager() =&gt; <span style="color: #008800; font-weight: bold">new</span> CookieSessionManager();
+}
+
+<span style="color: #a61717; background-color: #e3d2d2">@</span>Api(<span style="color: #336699; font-style: italic">path:</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;/api&#39;</span>)
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #bb0066; font-weight: bold">LibraryApi</span> <span style="color: #008800; font-weight: bold">extends</span> <span style="color: #888888; font-weight: bold">Object</span>
+    with _$JaguarLibraryApi
+    <span style="color: #008800; font-weight: bold">implements</span> RequestHandler {
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> AuthRoutes auth = <span style="color: #008800; font-weight: bold">new</span> AuthRoutes();
+
+  <span style="color: #a61717; background-color: #e3d2d2">@</span>Group()
+  <span style="color: #008800; font-weight: bold">final</span> StudentRoutes student = <span style="color: #008800; font-weight: bold">new</span> StudentRoutes();
+}
+</pre></td></tr></table></div>
+
+
+<h2><a name="implement-custom-sessionmanager" href="#implement-custom-sessionmanager">Implement custom SessionManager</a></h2>
+
+<p>
+  One can write their own SessionManager by implementing the SessionManager interface.
+</p>
+
+</article>
+
+<aside id="sidebar">
+	<div class="ul">
+		<div class="li main-items"><a href="/intro/routes.html"><span class="hover">Route handlers</span></a></div>
+		<div class="li main-items"><a href="/intro/interceptors.html"><span class="hover">Interceptors</span></a></div>
+		<div class="li main-items" onclick="scrollTo('session')"><span class="hover">Session</span></div>
+		<div class="ul sub-menu">
+      <div class="li" onclick="scrollTo('sessioninterceptor')"><span class="hover">SessionInterceptor</span></div>
+		  <div class="li" onclick="scrollTo('sessionmanager')"><span class="hover">SessionManager</span></div>
+		  <div class="li" onclick="scrollTo('cookie')"><span class="hover">CookieSessionManager</span></div>
+		  <div class="li" onclick="scrollTo('jwt-on-cookie')"><span class="hover">JwtCookieSessionManager</span></div>
+		  <div class="li" onclick="scrollTo('jwt-on-authorization-header')"><span class="hover">JwtAuthHeaderSessionManager</span></div>
+		  <div class="li" onclick="scrollTo('using-sessionmanager-directly')"><span class="hover">Using SessionManager directly</span></div>
+		  <div class="li" onclick="scrollTo('implement-custom-sessionmanager')"><span class="hover">Implement custom SessionManager</span></div>
+		</div>
+		<div class="li main-items"><a href="/intro/auth.html"><span class="hover">Authentication and Authorisation</span></a></div>
+	</div>
+</aside>
+</body>
+
+</html>
