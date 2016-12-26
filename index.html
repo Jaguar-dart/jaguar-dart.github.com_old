@@ -226,7 +226,7 @@ article {
     <span class="nav-menu-item"><a href="/getting_started.html">Get started</a></span>
     <span class="nav-menu-item"><a href="/intro/routes.html">Intro</a></span>
     <span class="nav-menu-item"><a href="https://www.dartdocs.org/documentation/jaguar/0.1.0/index.html">Api</a></span>
-    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Examples</a></span>
+    <span class="nav-menu-item"><a href="https://github.com/jaguar-examples">Examples</a></span>
     <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
     <span class="nav-menu-item"><a href="https://pub.dartlang.org/packages/jaguar">Pub</a></span>
   </span>
@@ -265,7 +265,7 @@ article {
     <h3 class="card-title">API docs</h3>
   </a>
 
-  <a class="card" href="https://github.com/Jaguar-dart">
+  <a class="card" href="https://github.com/jaguar-examples">
     <div class="card-icon card-icon-examples"></div>
     <h3 class="card-title">Browse examples</h3>
   </a>
@@ -303,25 +303,25 @@ article {
   </div>
   <div style="width: 550px; font-size: 12px;">
     <div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #555555; font-weight: bold">@RouteGroup</span>(path: <span style="color: #4070a0">&#39;/info&#39;</span>)
-    <span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleRouteGroup</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleRouteGroup {
-      <span style="color: #555555; font-weight: bold">@Get</span>()
-      <span style="color: #555555; font-weight: bold">@WrapEncodeToJson</span>()
-      Map info() <span style="color: #666666">=&gt;</span> {
-        <span style="color: #4070a0">&#39;name&#39;</span>: <span style="color: #4070a0">&#39;jaguar&#39;</span>,
-        <span style="color: #4070a0">&#39;motto&#39;</span>: <span style="color: #4070a0">&#39;Speed. Simplicity. Extensiblity.&#39;</span>,
-        <span style="color: #4070a0">&#39;degree of awesomeness&#39;</span>: <span style="color: #4070a0">&#39;infinity!&#39;</span>,
-      };
-    }
+<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleRouteGroup</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleRouteGroup {
+<span style="color: #555555; font-weight: bold">@Get</span>()
+<span style="color: #555555; font-weight: bold">@WrapEncodeToJson</span>()
+Map info() <span style="color: #666666">=&gt;</span> {
+  <span style="color: #4070a0">&#39;name&#39;</span>: <span style="color: #4070a0">&#39;jaguar&#39;</span>,
+  <span style="color: #4070a0">&#39;motto&#39;</span>: <span style="color: #4070a0">&#39;Speed. Simplicity. Extensiblity.&#39;</span>,
+  <span style="color: #4070a0">&#39;degree of awesomeness&#39;</span>: <span style="color: #4070a0">&#39;infinity!&#39;</span>,
+};
+}
 
-    <span style="color: #555555; font-weight: bold">@Api</span>(path: <span style="color: #4070a0">&#39;/api&#39;</span>)
-    <span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleApi</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleApi {
-      <span style="color: #555555; font-weight: bold">@Group</span>()
-      final ExampleRouteGroup exampleRoutes <span style="color: #666666">=</span> new ExampleRouteGroup();
+<span style="color: #555555; font-weight: bold">@Api</span>(path: <span style="color: #4070a0">&#39;/api&#39;</span>)
+<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleApi</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleApi {
+<span style="color: #555555; font-weight: bold">@Group</span>()
+final ExampleRouteGroup exampleRoutes <span style="color: #666666">=</span> new ExampleRouteGroup();
 
-      <span style="color: #555555; font-weight: bold">@Route</span>(path: <span style="color: #4070a0">&#39;/version&#39;</span>, methods: const [<span style="color: #4070a0">&#39;GET&#39;</span>])
-      num version() <span style="color: #666666">=&gt;</span> <span style="color: #40a070">1.0</span>;
-    }
-    </pre></div>
+<span style="color: #555555; font-weight: bold">@Route</span>(path: <span style="color: #4070a0">&#39;/version&#39;</span>, methods: const [<span style="color: #4070a0">&#39;GET&#39;</span>])
+num version() <span style="color: #666666">=&gt;</span> <span style="color: #40a070">1.0</span>;
+}
+</pre></div>
 
   </div>
   </div>
