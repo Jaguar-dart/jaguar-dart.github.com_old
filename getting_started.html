@@ -181,7 +181,7 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
   declaration of `JaguarExampleApi` and `JaguarExampleRouteGroup`.
 </p>
 
-<script src="https://gist.github.com/tejainece/a75ac602978adbf61ab27424a8963b15.js?file=example_source_gen.dart"></script>
+<script src="https://gist.github.com/tejainece/9d166f641a8bf6ca74be4cfc079d96c9.js?file=api.dart"></script>
 
 <h3><a name="the-main-function" href="#the-main-function">The main function</a></h3>
 
@@ -190,20 +190,7 @@ Jaguar uses `jaguar` command for building, watching for changes and creating
   Apis. This can be found in `bin/server.dart` dart file.
 </p>
 
-<div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;package:jaguar/jaguar.dart&#39;</span> <span style="color: #007020; font-weight: bold">as</span> jaguar;
-
-<span style="color: #007020; font-weight: bold">import</span> <span style="color: #4070a0">&#39;package:boilerplate/api.dart&#39;</span>;
-
-main(List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> args) async {
-  ExampleApi ea <span style="color: #666666">=</span> new ExampleApi();
-
-  jaguar<span style="color: #666666">.</span>Configuration configuration <span style="color: #666666">=</span>
-      new jaguar<span style="color: #666666">.</span>Configuration(multiThread: true);
-  configuration<span style="color: #666666">.</span>addApi(ea);
-
-  await jaguar<span style="color: #666666">.</span>serve(configuration);
-}
-</pre></div>
+<script src="https://gist.github.com/tejainece/9d166f641a8bf6ca74be4cfc079d96c9.js?file=server.dart"></script>
 
 <h2><a name="building-routegroup-and-api" href="#building-routegroup-and-api">Building RouteGroup and Api</a></h2>
 
