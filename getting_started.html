@@ -293,6 +293,26 @@ using configuration.
 <p>
 TODO!
 </p>
+	
+<h2><a name="hello-world" href="#hello-world-reflect">Hello world: Using reflection</a></h2>
+
+<p>
+  In this section, we will clone a tiny example project from github and analyse basics of jaguar_reflect. Api and RouteGroup
+  using jaguar_reflect doesn't need source generation. An advantage with Jaguar is, one can switch the code base between
+  source generation and reflection anytime they want without making any changes to code base.
+</p>
+
+<pre>
+  git clone https://github.com/jaguar-examples/boilerplate_reflect.git
+  cd boilerplate
+  pub get
+</pre>
+	
+<script src="https://gist.github.com/tejainece/134c9686dfa4e4679c29eb51112d1460.js?file=api.dart"></script>
+	
+<script src="https://gist.github.com/tejainece/134c9686dfa4e4679c29eb51112d1460.js?file=server.dart"></script>
+	
+With jaguar_reflect, `jaguar build` and `jaguar.yaml` are not required.
 
 <h2><a name="next-step-forward" href="#next-step-forward">Next step forward</a></h2>
 
