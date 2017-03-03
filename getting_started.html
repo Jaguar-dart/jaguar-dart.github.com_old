@@ -37,38 +37,41 @@ h5 > a {
 
 <style>
 header {
-  width: 100%;
-  border-top: 5px solid #ce8f22;
-  height: 40px;
-  background-color: black;
-	overflow: hidden;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.49);
 }
 
 header .title {
-  height: 40px;
-  line-height: 40px;
-  color: white;
-  font-size: 16px;
-  margin-left: 10px;
-  width: 200px;
-  display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    font-size: 25px;
+    padding: 0px 10px;
+    width: 150px;
+    color: #b37d1a;
+    box-sizing: border-box;
+    justify-content: center;
+    display: flex;
 }
 
 header .title a {
-  text-decoration: none;
-  color: inherit;
-  font-size: 25px;
+    text-decoration: none;
+    color: inherit;
+    font-size: 25px;
 }
 
 header .nav-menu {
-  color: #d49b2b;
-  margin-left: 5px;
-  font-size: 18px;
+    color: #000000;
+    margin-left: 5px;
+    font-size: 18px;
 }
 
 header .nav-menu-item {
-  margin-right: 25px;
-  cursor: pointer;
+    margin-right: 25px;
+    cursor: pointer;
 }
 
 header .nav-menu-item a {
@@ -78,7 +81,8 @@ header .nav-menu-item a {
 }
 
 header .nav-menu-item:hover {
-  border-bottom: 2px solid white;
+    border-bottom: 2px solid black;
+    color: black;
 }
 </style>
 
@@ -120,7 +124,7 @@ header .nav-menu-item:hover {
 <body>
 
 <header>
-	<span class="title"><a href="/">Jaguar</a>::Getting started</span>
+	<span class="title"><a href="/">Jaguar</a></span>
 
 	<span class="nav-menu">
     <span class="nav-menu-item"><a href="/getting_started.html">Get started</a></span>
