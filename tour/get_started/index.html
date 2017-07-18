@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.25.1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta property="og:url" content="http://replace-this-with-your-hugo-site.com/tour/get_started/">
+  
+  
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/body.css">
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+
+  <link rel="stylesheet" href="http://replace-this-with-your-hugo-site.com/css/prettify_own.css">
+  <link rel="stylesheet" href="http://replace-this-with-your-hugo-site.com/css/styles.css">
+  <link rel="stylesheet" href="http://replace-this-with-your-hugo-site.com/css/custom.css">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://replace-this-with-your-hugo-site.com//index.xml">
+
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+
+  
+  <title>Get started - My New Hugo Site</title>
+  <meta property='og:title' content="Get started - My New Hugo Site">
+  <meta property="og:type" content="article">
+  
+
+
+  
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=dart&lang=go&lang=css&lang=swift&lang=vhdl&lang=yaml"></script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-50258346-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <link rel="stylesheet" type="text/css" href="/css/tour_slide.css">
+</head>
+<body>
+  <header>
+  <span class="title"><a href="/">Jaguar</a></span>
+  <span class="nav-menu">
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart/jaguar/wiki">Wiki</a></span>
+    <span class="nav-menu-item"><a href="https://www.dartdocs.org/documentation/jaguar/latest/index.html">Api</a></span>
+    <span class="nav-menu-item"><a href="https://github.com/jaguar-examples">Examples</a></span>
+    <span class="nav-menu-item"><a href="https://gitter.im/jaguar_dart/jaguar">Gitter</a></span>
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
+  </span>
+</header>
+
+
+  <article>
+    <h1>Get started</h1>
+    
+
+<p>In this tutorial, we will</p>
+
+<ol>
+<li>use <code>jaguar</code> cli to clone a boilerplate repository</li>
+<li>Examine the boilerplate example</li>
+<li>Test run the boilerplate example</li>
+</ol>
+
+<script type="text/javascript" src="https://asciinema.org/a/125171.js" 
+id="asciicast-125171" async></script>
+
+
+<h1 id="1-installation">1. Installation</h1>
+
+<p><code>jaguar</code> cli has some nifty commands to clone boilerplate projects and assist in code generation. Install it using the following command:</p>
+
+<p><code>pub global activate jaguar_cli</code></p>
+
+<h1 id="2-list-available-boilerplate-examples">2. List available boilerplate/examples</h1>
+
+<p><code>list::projects</code> command of <code>jaguar</code> cli lists all available boilerplate/examples.</p>
+
+<p><code>jaguar list::projects</code></p>
+
+<blockquote>
+<p>&hellip;<br />
+boilerplate_reflect: Boilerplate for jaguar_reflect<br />
+&hellip;</p>
+</blockquote>
+
+<p>In this example, we will be using <a href="https://github.com/jaguar-examples/boilerplate_reflect">boilerplate_reflect</a>. Since it uses, source generation instead of reflection, it is much easier to get started.</p>
+
+<h1 id="3-clone-the-project">3. Clone the project</h1>
+
+<p>Lets use <code>create::project</code> command of <code>jaguar</code> cli to clone the desired boilerplate.</p>
+
+<p><code>jaguar create::project -r boilerplate_reflect</code></p>
+
+<h1 id="4-pub-get">4. pub get</h1>
+
+<p>Lets resolve all pub dependencies.</p>
+
+<p><code>pub get</code></p>
+
+<h1 id="5-examine-the-example">5. Examine the example</h1>
+
+<p>You might want to peek at the following files:</p>
+
+<ol>
+<li><a href="https://github.com/jaguar-examples/boilerplate_reflect/blob/master/lib/api.dart">lib/api.dart</a>
+Declares the routes and route handlers</li>
+<li><a href="https://github.com/jaguar-examples/boilerplate_reflect/blob/master/bin/server.dart">bin/server.dart</a>
+Main file for server</li>
+<li><a href="https://github.com/jaguar-examples/boilerplate_reflect/blob/master/bin/client.dart">bin/client.dart</a>
+Main file for client. <code>dart:io</code> based client to test run the sample routes.</li>
+</ol>
+
+<h1 id="6-test-run">6. Test run</h1>
+
+<p>Run the server:</p>
+
+<p><code>dart bin/server.dart</code></p>
+
+<p>Run the client:</p>
+
+<p><code>dart bin/client.dart</code></p>
+
+<p>The client prints the response it received from the server on the terminal. It must be something similar to this:</p>
+
+<blockquote>
+<p>=========================<br />
+body:<br />
+0.1<br />
+statusCode:<br />
+200<br />
+headers:<br />
+x-frame-options: SAMEORIGIN<br />
+content-type: text/plain; charset=utf-8<br />
+x-xss-protection: 1; mode=block<br />
+x-content-type-options: nosniff<br />
+transfer-encoding: chunked<br />
+&hellip;<br />
+&hellip;</p>
+</blockquote>
+
+<h1 id="7-where-to-go-from-here">7. Where to go from here</h1>
+
+<h2 id="7-1-ide">7.1 IDE</h2>
+
+<p>We recommend installing <a href="https://www.jetbrains.com/idea/">IntelliJ IDE</a> and <a href="https://plugins.jetbrains.com/plugin/6351-dart">Dart plugin for IntelliJ IDE</a>. We believe IntelliJ is the best IDE available for Dart. It makes developing Jaguar.dart applications a breeze.</p>
+
+<p>Alternatively, <a href="https://atom.io/">atom.io</a> with <a href="https://atom.io/packages/dartlang">dart plugin</a> is also a good editor.</p>
+
+<h2 id="7-2-digging-deeper-into-jaguar-dart">7.2 Digging deeper into Jaguar.dart</h2>
+
+<p><a href="https://github.com/Jaguar-dart/jaguar/wiki">Jaguar.dart wiki</a> has several articles on introduction to various parts of Jaguar framework.</p>
+
+  </article>
+</body>
+</html>

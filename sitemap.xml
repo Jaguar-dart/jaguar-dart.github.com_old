@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/routing/</loc>
+    <lastmod>2017-06-05T08:06:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/json/</loc>
+    <lastmod>2017-06-05T08:06:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/routing/4/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/routing/3/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/json/2/</loc>
+    <lastmod>2017-07-18T13:07:45+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/routing/2/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/routing/1/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/json/1/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/tour/get_started/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/</loc>
+    <lastmod>2017-07-18T13:07:45+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/tour/</loc>
+  </url>
+  
+</urlset>

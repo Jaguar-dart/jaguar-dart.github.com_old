@@ -1,0 +1,36 @@
+main {
+  width: 100%;
+  height: calc(100% - 41px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  padding: 20px 50px;
+  box-sizing: border-box;
+}
+
+.move {
+  position: absolute;
+  text-decoration: none;
+  font-size: 40px;
+  top: calc(50% - 20px);
+  color: black;
+}
+
+.move:hover {
+  color: #d83131;
+}
+
+.move-back {
+  left: 10px;
+}
+
+.move-next {
+  right: 10px;
+}
+
+article {
+  width: 70%;
+  max-width: 800px;
+  margin: auto;
+  float: none;
+}

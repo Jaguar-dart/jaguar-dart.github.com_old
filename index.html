@@ -1,389 +1,47 @@
 <html>
-
 <head>
-<title>Jaguar::Home</title>
-<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700|Source+Sans+Pro:200,400,700,600,400italic,700italic" rel="stylesheet" type="text/css">
+	<meta name="generator" content="Hugo 0.25.1" />
+	<title>Jaguar</title>
+	<link rel="stylesheet" type="text/css" href="/css/body.css">
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
 
-<style>
-html, body {
-  font-family: "Source Sans Pro",sans-serif;
-  margin: 0px;
-  padding: 0px;
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  color: #f4645f;
-  text-decoration: none;
-  outline: none;
-  font-weight: normal;
-}
-
-a {
-  text-decoration: none;
-  outline: none;
-}
-</style>
-
-<style>
-header {
-  width: 100%;
-  border-top: 5px solid #ce8f22;
-  height: 40px;
-  background-color: black;
-	overflow: hidden;
-}
-
-header .title {
-  height: 40px;
-  line-height: 40px;
-  color: white;
-  font-size: 16px;
-  margin-left: 10px;
-  width: 200px;
-  display: inline-block;
-}
-
-header .title a {
-  text-decoration: none;
-  color: inherit;
-  font-size: 25px;
-}
-
-header .nav-menu {
-  color: #d49b2b;
-  margin-left: 5px;
-  font-size: 18px;
-}
-
-header .nav-menu-item {
-  margin-right: 25px;
-  cursor: pointer;
-}
-
-header .nav-menu-item a {
-  text-decoration: none;
-  color: inherit;
-  outline: none;
-}
-
-header .nav-menu-item:hover {
-  border-bottom: 2px solid white;
-}
-</style>
-
-<style>
-article {
-}
-
-.article-heading {
-    margin-left: 10px;
-}
-
-#article {
-  margin: 0px calc(10%) 5px 10%;
-  font-size: 16px;
-  line-height: 22px;
-}
-
-.jaguar-code {
-  padding: 0px 3px;
-  background-color: #f9f9f9;
-  border: 1px solid #d6d6d6;
-  border-radius: 5px;
-}
-</style>
-
-<style>
-#section-introducing {
-  background-color: #f5f5f5;
-  color: #68006C;
-  padding: 60px 20px;
-  margin: 0px;
-  text-align: center;
-}
-
-#introducing-title {
-  font-size: 32px;
-  line-height: 45px;
-}
-
-#introducing-motto {
-  font-size: 22px;
-  margin-top: 20px;
-  position: relative;
-  display: inline-block;
-}
-
-#introducing-motto-bar {
-  position: absolute;
-  left: 0px;
-  bottom: 0px;
-  height: 3px;
-  background-color: #68006C;
-  animation: motto-anim 10s infinite;
-}
-
-.introducing-motto-item {
-}
-
-.introducing-motto-item-simplicity {
-}
-
-.introducing-motto-item-speed {
-}
-
-.introducing-motto-item-extensibility {
-}
-
-@keyframes motto-anim {
-  0%   { width: 0%; }
-  100% { width: 100%; }
-}
-</style>
-
-<style>
-#cards  {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 0px;
-}
-
-.card {
-  width: 200px;
-  height: 200px;
-  background-color: #F5F5F5;
-  margin: 10px;
-  padding: 10px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.card-title {
-  text-align: center;
-}
-
-.card-icon {
-  width: 100px;
-  height: 80px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: 10px;
-}
-
-.card-icon-getstarted {
-  background-image: url(assets/get_started.png);
-}
-
-.card-icon-intro {
-  background-image: url(assets/intro.png);
-}
-
-.card-icon-api {
-  background-image: url(assets/api.svg);
-}
-
-.card-icon-examples {
-  background-image: url(assets/examples.png);
-}
-
-.card-icon-chat {
-  background-image: url(assets/chat.png);
-}
-
-.card:hover .card-title {
-  color: #d4312b;
-  text-decoration: underline;
-}
-</style>
-
-<style>
- .section-why {
-   background-color: #f5f5f5;
-   padding: 10px;
- }
-</style>
-
+	
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
 </head>
 
 <body>
-
-<header>
-	<span class="title"><a href="/">Jaguar</a>::Home</span>
-
-	<span class="nav-menu">
-    <span class="nav-menu-item"><a href="/getting_started.html">Get started</a></span>
-    <span class="nav-menu-item"><a href="/intro/routes.html">Intro</a></span>
-    <span class="nav-menu-item"><a href="https://www.dartdocs.org/documentation/jaguar/0.1.0/index.html">Api</a></span>
+	<header>
+  <span class="title"><a href="/">Jaguar</a></span>
+  <span class="nav-menu">
+    <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart/jaguar/wiki">Wiki</a></span>
+    <span class="nav-menu-item"><a href="https://www.dartdocs.org/documentation/jaguar/latest/index.html">Api</a></span>
     <span class="nav-menu-item"><a href="https://github.com/jaguar-examples">Examples</a></span>
+    <span class="nav-menu-item"><a href="https://gitter.im/jaguar_dart/jaguar">Gitter</a></span>
     <span class="nav-menu-item"><a href="https://github.com/Jaguar-dart">Github</a></span>
-    <span class="nav-menu-item"><a href="https://pub.dartlang.org/packages/jaguar">Pub</a></span>
   </span>
 </header>
 
-<article id="section-introducing">
-  <div id="introducing-title">
-    <strong>Jaguar</strong> is a <strong>full stack web framework</strong> for <strong>Dart</strong>.
-  </div>
 
-  <div id="introducing-motto">
-    <span class="introducing-motto-item introducing-motto-item-simplicity">Simplicity. </span>
-    <span class="introducing-motto-item-speed">Speed. </span>
-    <span class="introducing-motto-item-extensibility">Extensiblity. </span>
+	<main>
+		<div class="intro">
+			<h1>Jaguar</h1>
+			<h2>Batteries included, production ready server framework</h2>
+			<div class="actions">
+			<span class="action"><a href="/tour/get_started">Get started</a></span>
+		  <span class="action"><a href="/tour">Tour</a></span>
+		  </div>
+		</div>
 
-    <div id="introducing-motto-bar"></div>
-  </div>
-</article>
-
-<article>
-<h1 class="article-heading">Learn to write awesome APIs with Jaguar</h1>
-
-<div id="cards">
-  <a class="card" href="/getting_started.html">
-    <div class="card-icon card-icon-getstarted"></div>
-    <h3 class="card-title">Get started</h3>
-  </a>
-
-  <a class="card" href="/introduction.html">
-    <div class="card-icon card-icon-intro"></div>
-    <h3 class="card-title">Introduction to jaguar</h3>
-  </a>
-
-  <a class="card" href="https://www.dartdocs.org/documentation/jaguar/0.1.0/index.html">
-    <div class="card-icon card-icon-api"></div>
-    <h3 class="card-title">API docs</h3>
-  </a>
-
-  <a class="card" href="https://github.com/jaguar-examples">
-    <div class="card-icon card-icon-examples"></div>
-    <h3 class="card-title">Browse examples</h3>
-  </a>
-
-  <a class="card" href="https://gitter.im/jaguar_dart/jaguar">
-    <div class="card-icon card-icon-chat"></div>
-    <h3 class="card-title">Chat with us</h3>
-  </a>
-</div>
-</article>
-
-<article>
-<h1 class="article-heading">Why Jaguar?</h1>
-
-<section class="section-why">
-  <h2>Simplicity</h2>
-
-  <div style="display: flex; justify-content: center; align-items: center;">
-  <div style="width: 240px;">
-  <p>
-    Annotated
-    <ul>
-      <li>Route</li>
-      <li>Interceptors</li>
-      <li>Exception handlers</li>
-      <li>Serializers</li>
-      <li>Query params</li>
-      <li>Path variables</li>
-      <li>Path variables</li>
-      <li>Headers</li>
-      <li>Cookies</li>
-      <li>Etc</li>
-    </ul>
-  </p>
-  </div>
-  <div style="width: 550px; font-size: 12px;">
-    <div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #555555; font-weight: bold">@RouteGroup</span>(path: <span style="color: #4070a0">&#39;/info&#39;</span>)
-<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleRouteGroup</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleRouteGroup {
-<span style="color: #555555; font-weight: bold">@Get</span>()
-<span style="color: #555555; font-weight: bold">@WrapEncodeToJson</span>()
-Map info() <span style="color: #666666">=&gt;</span> {
-  <span style="color: #4070a0">&#39;name&#39;</span>: <span style="color: #4070a0">&#39;jaguar&#39;</span>,
-  <span style="color: #4070a0">&#39;motto&#39;</span>: <span style="color: #4070a0">&#39;Speed. Simplicity. Extensiblity.&#39;</span>,
-  <span style="color: #4070a0">&#39;degree of awesomeness&#39;</span>: <span style="color: #4070a0">&#39;infinity!&#39;</span>,
-};
-}
-
-<span style="color: #555555; font-weight: bold">@Api</span>(path: <span style="color: #4070a0">&#39;/api&#39;</span>)
-<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ExampleApi</span> extends _<span style="border: 1px solid #FF0000">$</span>JaguarExampleApi {
-<span style="color: #555555; font-weight: bold">@Group</span>()
-final ExampleRouteGroup exampleRoutes <span style="color: #666666">=</span> new ExampleRouteGroup();
-
-<span style="color: #555555; font-weight: bold">@Route</span>(path: <span style="color: #4070a0">&#39;/version&#39;</span>, methods: const [<span style="color: #4070a0">&#39;GET&#39;</span>])
-num version() <span style="color: #666666">=&gt;</span> <span style="color: #40a070">1.0</span>;
-}
-</pre></div>
-
-  </div>
-  </div>
-</section>
-
-<section class="section-why">
-  <h2>Speed</h2>
-
-  <div>
-    <div>
-      <p>
-    Jaguar's speed comes from code generation. Rather than parsing annotations during
-    runtime using reflection, Jaguar generates the request handlers for you during build time.
-      </p>
-    <div>
-
-    <pre> jaguar build</pre>
-  </div>
-</section>
-
-<section class="section-why">
-  <h2>Extensibility</h2>
-
-  <div>
-    <p>
-  Powerful interceptor and exception handling architecture.
-    </p>
-
-    <P>
-  You write your own interceptors very easily and also make use of existing interceptor libraries.
-    </p>
-  </div>
-
-  <div>
-
-  </div>
-</section>
-
-<section class="section-why">
-  <h2>Scalable</h2>
-
-  <p>
-Jaguar uses the share nothing approach. Servers do not share any common session information.
-That means you can scale Jaguar horizontally with ease.
-  </p>
-</section>
-
-<section class="section-why">
-  <h2>100% Dart</h2>
-
-  <p>
-    Jaugar is built on Dart.
-
-    <ul>
-      <li>Use packages on pub repository</li>
-      <li>Use pub command and pubspec.yaml to manage dependencies</li>
-      <li>Use dart analyzer to statically analyze code</li>
-      <li>Develop using Intellij Dart plugin</li>
-    </ul>
-  </p>
-</section>
-</article>
-
+		<div class="footer">
+			<span class="footer-item"><a href="/getting_started.html">Routing</a></span>
+			<span class="footer-item"><a href="/getting_started.html">JSON</a></span>
+			<span class="footer-item"><a href="/getting_started.html">Auth</a></span>
+			<span class="footer-item"><a href="/getting_started.html">OAuth</a></span>
+			<span class="footer-item"><a href="/getting_started.html">MongoDb</a></span>
+			<span class="footer-item"><a href="/getting_started.html">PostgreSQL</a></span>
+			<span class="footer-item"><a href="/getting_started.html">MySQL</a></span>
+		</div>
+	</main>
 </body>
 </html>
