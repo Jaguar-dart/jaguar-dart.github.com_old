@@ -13,11 +13,32 @@
   </url>
   
   <url>
+    <loc>http://replace-this-with-your-hugo-site.com/cache/</loc>
+    <lastmod>2017-06-05T08:06:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/cache/5/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/cache/6/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/cache/4/</loc>
+  </url>
+  
+  <url>
     <loc>http://replace-this-with-your-hugo-site.com/routing/4/</loc>
   </url>
   
   <url>
     <loc>http://replace-this-with-your-hugo-site.com/routing/3/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/cache/3/</loc>
   </url>
   
   <url>
@@ -30,7 +51,15 @@
   </url>
   
   <url>
+    <loc>http://replace-this-with-your-hugo-site.com/cache/2/</loc>
+  </url>
+  
+  <url>
     <loc>http://replace-this-with-your-hugo-site.com/routing/1/</loc>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/cache/1/</loc>
   </url>
   
   <url>

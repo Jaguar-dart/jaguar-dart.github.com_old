@@ -23,6 +23,7 @@ blockquote {
 pre.prettyprint {
   border-left: 2px solid #000000 !important;
   padding: 10px !important;
+	white-space: pre-wrap;
 }
 
 li.L0, li.L1, li.L2, li.L3,

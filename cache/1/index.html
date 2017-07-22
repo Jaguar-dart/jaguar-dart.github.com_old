@@ -5,7 +5,7 @@
   <meta name="generator" content="Hugo 0.25.1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <meta property="og:url" content="http://replace-this-with-your-hugo-site.com/tour/">
+  <meta property="og:url" content="http://replace-this-with-your-hugo-site.com/cache/1/">
   
   
 
@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
 
   
-  <title>Tour - My New Hugo Site</title>
-  <meta property='og:title' content="Tour - My New Hugo Site">
+  <title>Introduction to Cache - My New Hugo Site</title>
+  <meta property='og:title' content="Introduction to Cache - My New Hugo Site">
   <meta property="og:type" content="article">
   
 
@@ -38,7 +38,7 @@
     ga('send', 'pageview');
   </script>
 
-  <link rel="stylesheet" type="text/css" href="/css/tours_list.css">
+  <link rel="stylesheet" type="text/css" href="/css/tour_slide.css">
 </head>
 <body>
   <header>
@@ -54,24 +54,23 @@
 
 
   <main>
-    <h3>Tours</h3>
-    <div class="tours">
-      <div class="tour-item">
-        
-        <a class="tour-title" href="/routing/1">Routing</a>
-        <div class="tour-desc">Learn how to add routes to Jaguar server</div>
-      </div>
-      
-      <div class="tour-item">
-        
-        <a class="tour-title" href="/cache/1">Cache</a>
-        <div class="tour-desc">Temporary, low-latency Cache storage</div>
-      </div>
-      <div class="tour-item">
-        <div class="tour-desc">More comming soon!</div>
-      </div>
-    </div>
+    
 
+    <article>
+      <h1>Introduction to Cache</h1>
+      <p>Jaguar provides a Cache library for server-side, temporary, low-latency storage. It is a good replacement for frequent database access to slowly changing data.</p>
+
+<p>It could also be used for implementing user sessions, if for example the cookie-based sessions are insufficient.</p>
+
+<p>The <a href="https://www.dartdocs.org/documentation/jaguar_cache/0.1.1/jaguar_cache/Cache-class.html">Cache</a> interface is implemented to support multiple backends:<br />
+1. <a href="https://www.dartdocs.org/documentation/jaguar_cache/0.1.1/jaguar_cache/InMemoryCache-class.html">In memory cache</a><br />
+2. <a href="https://www.dartdocs.org/documentation/jaguar_cache_redis/0.1.0/jaguar_cache_redis/RedisCache-class.html">Redis</a></p>
+
+    </article>
+
+    
+      <a class="move move-next" href="/cache/2/">&gt;</a>
+    
   </main>
 </body>
 </html>

@@ -66,6 +66,47 @@
       
       <div class="sm"></div>
       
+      <div class="sm"></div>
+      
+      <div class="sm"><article class="li">
+  <a href="http://replace-this-with-your-hugo-site.com/cache/5/" class="clearfix">
+    <div class="detail">
+      <time>Mon, Jan 1, 0001</time>
+      <h2 class="title">Replacing data</h2>
+      <div class="summary">replace method sets the given key/value in the cache ONLY IF the key already exists.
+Example await cache.replace('one', 2, new Duration(seconds: 5)); Usage in route Here is an example showing how to use replace during update operation on a resource.
+@Put(path: '/:id') Future update(Context ctx) async { final String id = ctx.pathParams.id; final db = ctx.getInput(MongoDb); Book book = await fromJson(ctx, type: Book); book.id = id; final bean = new BookBean(db); await bean.</div>
+    </div>
+  </a>
+</article>
+</div>
+      
+      <div class="sm"><article class="li">
+  <a href="http://replace-this-with-your-hugo-site.com/cache/6/" class="clearfix">
+    <div class="detail">
+      <time>Mon, Jan 1, 0001</time>
+      <h2 class="title">Deleting data</h2>
+      <div class="summary"> remove method deletes the given key from the cache.
+Example await cache.remove('one'); Usage in route Here is an example showing how to use remove during delete operation on a resource.
+@Delete(path: '/:id') Future delete(Context ctx) async { final String id = ctx.pathParams.id; final db = ctx.getInput(MongoDb); final bean = new BookBean(db); await bean.remove(id); cache.remove(id); final List books = await bean.getAll(); return toJson(books); } </div>
+    </div>
+  </a>
+</article>
+</div>
+      
+      <div class="sm"><article class="li">
+  <a href="http://replace-this-with-your-hugo-site.com/cache/4/" class="clearfix">
+    <div class="detail">
+      <time>Mon, Jan 1, 0001</time>
+      <h2 class="title">Reading data</h2>
+      <div class="summary"> read method gets the content associated with the given key.
+Example print(await cache.read('one')); Usage in route Here is an example showing how to use read during read operation on a resource.
+@Get(path: '/:id') Future getById(Context ctx) async { final String id = ctx.pathParams.id; Book book; try { book = cache.read(id); } catch(e) { final db = ctx.getInput(MongoDb); final bean = new BookBean(db); book = await bean.getById(id); cache.upsert(id, book); } return toJson(book); } </div>
+    </div>
+  </a>
+</article>
+</div>
+      
       <div class="sm"><article class="li">
   <a href="http://replace-this-with-your-hugo-site.com/routing/4/" class="clearfix">
     <div class="detail">
@@ -95,67 +136,24 @@ path parameter of route annotation defines the route path.
 </div>
       
       <div class="sm"><article class="li">
+  <a href="http://replace-this-with-your-hugo-site.com/cache/3/" class="clearfix">
+    <div class="detail">
+      <time>Mon, Jan 1, 0001</time>
+      <h2 class="title">Setting data</h2>
+      <div class="summary">upsert method sets the given key/value in the cache, overwriting any existing value associated with that key.
+Example await cache.upsert('one', 1, new Duration(seconds: 5)); Usage in route Here is an example showing how to use upsert during create operation on a resource.
+@Post() Future create(Context ctx) async { final db = ctx.getInput(MongoDb); Book book = await fromJson(ctx, type: Book); final bean = new BookBean(db); final String id = await bean.</div>
+    </div>
+  </a>
+</article>
+</div>
+      
+      <div class="sm"><article class="li">
   <a href="http://replace-this-with-your-hugo-site.com/json/2/" class="clearfix">
     <div class="detail">
       <time>Tue, Jul 18, 2017</time>
       <h2 class="title">2</h2>
       <div class="summary">rtertert</div>
-    </div>
-  </a>
-</article>
-</div>
-      
-      <div class="sm"><article class="li">
-  <a href="http://replace-this-with-your-hugo-site.com/routing/2/" class="clearfix">
-    <div class="detail">
-      <time>Mon, Jan 1, 0001</time>
-      <h2 class="title">Route handler</h2>
-      <div class="summary">Route handler methods in a Controller take Context object as argument and returns Response object or response value.
-If a response value is returned, Controller automatically converts the value into a Response object.
-String handler(Context ctx) = 'Hello'; </div>
-    </div>
-  </a>
-</article>
-</div>
-      
-      <div class="sm"><article class="li">
-  <a href="http://replace-this-with-your-hugo-site.com/routing/1/" class="clearfix">
-    <div class="detail">
-      <time>Mon, Jan 1, 0001</time>
-      <h2 class="title">Controller</h2>
-      <div class="summary">A Controller in Jaguar is a collection of route handlers with same path prefix.
-Api annotation is used to declare a class as a Controller.
-path parameter sets the path prefix for the consisting routes and sub-Controllers.
-@Api(path: '/api') class ExampleApi { ... } </div>
-    </div>
-  </a>
-</article>
-</div>
-      
-      <div class="sm"><article class="li">
-  <a href="http://replace-this-with-your-hugo-site.com/json/1/" class="clearfix">
-    <div class="detail">
-      <time>Mon, Jan 1, 0001</time>
-      <h2 class="title">JSON 1</h2>
-      <div class="summary">Routing!</div>
-    </div>
-  </a>
-</article>
-</div>
-      
-      <div class="sm"></div>
-      
-      <div class="sm"><article class="li">
-  <a href="http://replace-this-with-your-hugo-site.com/tour/get_started/" class="clearfix">
-    <div class="detail">
-      <time>Mon, Jan 1, 0001</time>
-      <h2 class="title">Get started</h2>
-      <div class="summary">In this tutorial, we will
- use jaguar cli to clone a boilerplate repository Examine the boilerplate example Test run the boilerplate example   1. Installation jaguar cli has some nifty commands to clone boilerplate projects and assist in code generation. Install it using the following command:
-pub global activate jaguar_cli
-2. List available boilerplate/examples list::projects command of jaguar cli lists all available boilerplate/examples.
-jaguar list::projects
- &hellip;</div>
     </div>
   </a>
 </article>

@@ -5,7 +5,7 @@
   <meta name="generator" content="Hugo 0.25.1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <meta property="og:url" content="http://replace-this-with-your-hugo-site.com/tour/">
+  <meta property="og:url" content="http://replace-this-with-your-hugo-site.com/cache/6/">
   
   
 
@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
 
   
-  <title>Tour - My New Hugo Site</title>
-  <meta property='og:title' content="Tour - My New Hugo Site">
+  <title>Deleting data - My New Hugo Site</title>
+  <meta property='og:title' content="Deleting data - My New Hugo Site">
   <meta property="og:type" content="article">
   
 
@@ -38,7 +38,7 @@
     ga('send', 'pageview');
   </script>
 
-  <link rel="stylesheet" type="text/css" href="/css/tours_list.css">
+  <link rel="stylesheet" type="text/css" href="/css/tour_slide.css">
 </head>
 <body>
   <header>
@@ -54,24 +54,46 @@
 
 
   <main>
-    <h3>Tours</h3>
-    <div class="tours">
-      <div class="tour-item">
-        
-        <a class="tour-title" href="/routing/1">Routing</a>
-        <div class="tour-desc">Learn how to add routes to Jaguar server</div>
-      </div>
-      
-      <div class="tour-item">
-        
-        <a class="tour-title" href="/cache/1">Cache</a>
-        <div class="tour-desc">Temporary, low-latency Cache storage</div>
-      </div>
-      <div class="tour-item">
-        <div class="tour-desc">More comming soon!</div>
-      </div>
-    </div>
+    
+      <a class="move move-back" href="/cache/4/">&lt;</a>
+    
 
+    <article>
+      <h1>Deleting data</h1>
+      
+
+<p><code>remove</code> method deletes the given key from the cache.</p>
+
+<h2 id="example">Example</h2>
+
+<pre class="prettyprint language-dart linenums">
+await cache.remove('one');
+</pre>
+
+
+<h2 id="usage-in-route">Usage in route</h2>
+
+<p>Here is an example showing how to use <code>remove</code> during delete operation on a resource.</p>
+
+<pre class="prettyprint language-dart linenums">
+@Delete(path: '/:id')
+Future<Response<String>> delete(Context ctx) async {
+  final String id = ctx.pathParams.id;
+  final db = ctx.getInput<Db>(MongoDb);
+  final bean = new BookBean(db);
+  await bean.remove(id);
+  cache.remove(id);
+  final List<Book> books = await bean.getAll();
+  return toJson(books);
+}
+</pre>
+
+
+    </article>
+
+    
+      <a class="move move-next" href="/cache/5/">&gt;</a>
+    
   </main>
 </body>
 </html>
